@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Page not found | Tankscaper</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--water:#e6f3f1;--ink:#0d2b33;--ink-soft:#3c5a61;--leaf:#2f7d3a;--line:rgba(13,43,51,.14);--card:rgba(255,255,255,.55);
+  --display:"Baloo 2","Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;--body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--water:#082029;--ink:#e3f2ef;--ink-soft:#a5c3c3;--leaf:#7fd08a;--line:rgba(227,242,239,.14);--card:rgba(255,255,255,.05);color-scheme:dark}}
+:root[data-theme="dark"]{--water:#082029;--ink:#e3f2ef;--ink-soft:#a5c3c3;--leaf:#7fd08a;--line:rgba(227,242,239,.14);--card:rgba(255,255,255,.05);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--water);color:var(--ink);font:400 1.0625rem/1.65 var(--body)}
+main{max-width:68ch;margin-inline:auto;padding-block:40px 64px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+a{color:var(--leaf);text-underline-offset:3px}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--leaf);outline-offset:3px}
+h1,h2{font-family:var(--display);font-weight:800;line-height:1.1;text-wrap:balance}
+h1{font-size:2.4rem;margin:18px 0 6px}
+h2{font-size:1.35rem;margin:38px 0 10px}
+p,ul,ol{margin:0 0 12px}
+ul,ol{padding-left:1.2em}
+li+li{margin-top:6px}
+.lead{color:var(--ink-soft);margin-bottom:24px}
+.top{display:flex;gap:20px;flex-wrap:wrap}
+.contact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.contact p:last-child{margin:0}
+.mail{user-select:all;font-weight:700;font-size:1.15rem;overflow-wrap:anywhere}
+.copy{font:700 .9rem var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;margin-left:6px;cursor:pointer;vertical-align:2px}
+.copied{color:var(--leaf);font-weight:700;margin-left:6px}
+details{border-bottom:1px solid var(--line)}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;font-weight:700;padding:14px 32px 14px 0;list-style:none;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:10px;font:800 1.4rem var(--display);color:var(--leaf)}
+details[open] summary::after{content:"−"}
+details>div{padding:0 0 14px}
+details>div p:last-child,details>div ul:last-child,details>div ol:last-child{margin-bottom:0}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.95rem}
+</style>
+</head>
+<body>
+<main>
+  <nav class="top" aria-label="Site"><a href="/">← Tankscaper</a><a href="/support.html">Support</a></nav>
+  <h1>That page swam off</h1>
+  <p class="lead">There's nothing at this address. It may have moved, or the link may have a typo.</p>
+  <div class="contact">
+    <p><a href="/">Go to the Tankscaper home page</a></p>
+    <p>Looking for help? Try the <a href="/support.html">support page</a>.</p>
+  </div>
+  <footer>Tankscaper is made in Perth, Western Australia.</footer>
+</main>
+</body>
+</html>
