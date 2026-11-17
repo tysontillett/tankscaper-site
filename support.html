@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tankscaper Support</title>
+<meta name="description" content="Help with Tankscaper: saves, purchases, getting started and how to report a bug.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--water:#e6f3f1;--ink:#0d2b33;--ink-soft:#3c5a61;--leaf:#2f7d3a;--line:rgba(13,43,51,.14);--card:rgba(255,255,255,.55);
+  --display:"Baloo 2","Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;--body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--water:#082029;--ink:#e3f2ef;--ink-soft:#a5c3c3;--leaf:#7fd08a;--line:rgba(227,242,239,.14);--card:rgba(255,255,255,.05);color-scheme:dark}}
+:root[data-theme="dark"]{--water:#082029;--ink:#e3f2ef;--ink-soft:#a5c3c3;--leaf:#7fd08a;--line:rgba(227,242,239,.14);--card:rgba(255,255,255,.05);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--water);color:var(--ink);font:400 1.0625rem/1.65 var(--body)}
+main{max-width:68ch;margin-inline:auto;padding-block:40px 64px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+a{color:var(--leaf);text-underline-offset:3px}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--leaf);outline-offset:3px}
+h1,h2{font-family:var(--display);font-weight:800;line-height:1.1;text-wrap:balance}
+h1{font-size:2.4rem;margin:18px 0 6px}
+h2{font-size:1.35rem;margin:38px 0 10px}
+p,ul,ol{margin:0 0 12px}
+ul,ol{padding-left:1.2em}
+li+li{margin-top:6px}
+.lead{color:var(--ink-soft);margin-bottom:24px}
+.top{display:flex;gap:20px;flex-wrap:wrap}
+.contact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.contact p:last-child{margin:0}
+.mail{user-select:all;font-weight:700;font-size:1.15rem;overflow-wrap:anywhere}
+.copy{font:700 .9rem var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;margin-left:6px;cursor:pointer;vertical-align:2px}
+.copied{color:var(--leaf);font-weight:700;margin-left:6px}
+details{border-bottom:1px solid var(--line)}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;font-weight:700;padding:14px 32px 14px 0;list-style:none;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:10px;font:800 1.4rem var(--display);color:var(--leaf)}
+details[open] summary::after{content:"−"}
+details>div{padding:0 0 14px}
+details>div p:last-child,details>div ul:last-child,details>div ol:last-child{margin-bottom:0}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.95rem}
+</style>
+</head>
+<body>
+<main>
+  <nav class="top" aria-label="Site"><a href="index.html">← Tankscaper</a><a href="privacy.html">Privacy policy</a></nav>
+  <h1>Support</h1>
+  <p class="lead">Stuck on something, or found a bug? The answers to common questions are below. If yours isn't here, email us.</p>
+
+  <div class="contact">
+    <p>Email <span class="mail" id="mail">support@tankscapergame.com</span> <button class="copy" type="button" id="copy-mail">Copy</button> <span class="copied" id="copy-note" role="status" aria-live="polite"></span></p>
+    <p>We're a small team, so it may take a few days to reply, but we read every message.</p>
+  </div>
+
+  <h2>Playing the game</h2>
+
+  <details>
+    <summary>How do I get started?</summary>
+    <div>
+      <p>Aunt Marina walks you through your first tank. Follow her tips to add gravel, plants and your first fish. A card at the start shows the controls. If you already know your way around, tap <strong>Skip the guide</strong>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>My fish are cold. What do I do?</summary>
+    <div>
+      <p>When a tank gets too cold, a warning appears. Tap the heater button on the warning to add a heater in one go. Tropical fish need warm water to stay healthy.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Why did my research start again in the new room?</summary>
+    <div>
+      <p>That's on purpose. The freshwater room, the reef room and the fish shop each have their own research and upgrades. When you move into a new room, you build up its upgrades from the start.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>How do I get to the touch pool in The Big Blue?</summary>
+    <div>
+      <p>The touch pool has to be built first. Once it's built, a button for it appears in The Big Blue, and you can visit it and aquascape it like your other tanks.</p>
+    </div>
+  </details>
+
+  <h2>Saves and purchases</h2>
+
+  <details>
+    <summary>Where is my progress saved?</summary>
+    <div>
+      <p>Your progress is saved on your phone or tablet, and you don't need an account. Deleting the app deletes your progress too, so keep that in mind before deleting it to free up space.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>I bought gems but didn't get them, or I'm on a new phone</summary>
+    <div>
+      <p>Open the gem shop and tap <strong>Restore purchases</strong>. Make sure you're signed in with the same Apple ID or Google account you used to buy them.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>How do I get a refund?</summary>
+    <div>
+      <p>Refunds are handled by the store you bought from, not by us.</p>
+      <ul>
+        <li><strong>iPhone and iPad:</strong> go to <a href="https://reportaproblem.apple.com" rel="noopener">reportaproblem.apple.com</a> and choose the purchase.</li>
+        <li><strong>Android:</strong> open Google Play, go to Payments &amp; subscriptions, then Budget &amp; history, and choose the purchase.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Do I have to watch ads?</summary>
+    <div>
+      <p>No. Tankscaper has no ads.</p>
+    </div>
+  </details>
+
+  <h2>Report a bug</h2>
+  <p>Email <span class="mail">support@tankscapergame.com</span> and include:</p>
+  <ol>
+    <li>Your phone or tablet model (for example, iPhone 13).</li>
+    <li>Your iOS or Android version.</li>
+    <li>What you were doing when it happened, and which room you were in.</li>
+    <li>A screenshot or screen recording, if you can.</li>
+  </ol>
+
+  <footer>Tankscaper is made in Perth, Western Australia.</footer>
+</main>
+<script>
+(function(){
+  var b=document.getElementById('copy-mail'),n=document.getElementById('copy-note');
+  if(!b)return;
+  b.addEventListener('click',function(){
+    var t='support@tankscapergame.com';
+    function ok(){n.textContent='Copied';setTimeout(function(){n.textContent=''},2000)}
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){n.textContent='Select the address to copy it'})}
+      else{n.textContent='Select the address to copy it'}
+    }catch(e){n.textContent='Select the address to copy it'}
+  });
+})();
+</script>
+</body>
+</html>

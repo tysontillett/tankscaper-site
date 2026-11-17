@@ -1,0 +1,1043 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Tankscaper</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Tankscaper is a free-to-play 3D aquarium tycoon game, coming soon to iPhone and Android. Aquascape real tanks, keep 103 real species, and build your way from Aunt Marina's old tank to The Big Blue.">
+<meta name="theme-color" content="#05213f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Fredoka:wght@500..700&display=swap">
+<style>
+/* Layout: the page is one long dive. The hero is bright water just under the surface; each section sits deeper,
+   the first three places are lit rooms that stack up on the way down, The Big Blue is the deep end, and the last
+   call rises back toward the light. Type is left-aligned and oversized; the game's own gradient and gold lead.
+   One deliberate look: this page is always dark, whatever the viewer's theme. */
+:root{
+  color-scheme:dark;
+  /* the game's loading-screen gradient, surface to deep */
+  --surface:#34c2ee;
+  --shallow:#1180b8;
+  --mid:#0a4a7c;
+  --deep:#05213f;
+  --abyss:#03142a;          /* page ground, just below the gradient */
+  --trench:#020b17;         /* footer */
+  /* coins, stars and the "You're here" button in the game */
+  --gold:#ffd54a;
+  --gold-ink:#3b2a00;
+  /* text on water */
+  --foam:#eef9ff;
+  --mist:#a6cfe8;
+  --line:rgba(166,207,232,.2);
+  --glass:rgba(2,16,34,.55);
+  /* silhouettes */
+  --sil-hi:#0c3f6b;
+  --sil-lo:#02182f;
+  --spot:#cfefff;
+  /* phone hardware */
+  --ti-hi:#5f7286;
+  --ti:#1a2633;
+  --ti-lo:#0b131c;
+  --bezel:#05080c;
+  /* the four places, coloured as on the game's home screen */
+  --fresh:#8fe07f;  --fresh-ground:#0c3b31; --fresh-deep:#04181b;
+  --reef:#bf93ff;   --reef-ground:#2b1858;  --reef-deep:#0c0a24;  --reef-ink:#1d0c3a;
+  --shop:#ffa857;   --shop-ground:#41230d;  --shop-deep:#140b07;  --shop-ink:#3a1a00;
+  --blue:#74d0ff;
+  --caustic:none;           /* filled in by script with a drawn caustic texture */
+  /* type */
+  --display:"Bricolage Grotesque","Avenir Next Condensed","Arial Narrow",sans-serif-condensed,system-ui,sans-serif;
+  --text:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ui:"Fredoka",ui-rounded,"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{background:var(--abyss);color:var(--foam);font:400 1.0625rem/1.6 var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+h1,h2,h3,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:10px}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+
+.wrap{width:100%;max-width:1280px;margin-inline:auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+@media (min-width:760px){.wrap{padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}}
+
+.display{font-family:var(--display);font-weight:800;font-stretch:75%;line-height:.9;letter-spacing:-.018em;text-wrap:balance}
+
+/* ---------- shared: store buttons, free-to-play line, phones ---------- */
+.stores{display:flex;flex-wrap:wrap;gap:12px}
+.store{display:inline-flex;align-items:center;gap:12px;min-height:62px;padding:10px 22px 10px 16px;border-radius:18px;background:var(--glass);border:1px solid rgba(238,249,255,.24);box-shadow:inset 0 1px 0 rgba(238,249,255,.12),0 18px 40px -22px rgba(0,0,0,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.store svg{width:28px;height:28px;flex:none;fill:none;stroke:var(--foam);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.store span{display:flex;flex-direction:column;gap:1px;min-width:0}
+.store small{font:500 .78rem/1.15 var(--ui);color:var(--mist);letter-spacing:.01em}
+.store b{font:600 1.32rem/1.1 var(--ui);color:var(--foam);white-space:nowrap}
+@media (max-width:479px){
+  .stores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+  .store{padding:10px 12px;gap:10px;min-height:58px}
+  .store svg{width:22px;height:22px}
+  .store small{font-size:.72rem}
+  .store b{font-size:1.1rem}
+}
+.free{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font:500 1rem/1.35 var(--ui);color:var(--mist)}
+.free b{font-weight:600;color:var(--gold-ink);background:var(--gold);border-radius:999px;padding:4px 12px 5px}
+.kind{font:500 clamp(1.05rem,1.8vw,1.3rem)/1.4 var(--ui);color:var(--mist)}
+
+.phone{--pw:min(300px,74vw);position:relative;width:var(--pw);max-width:100%;padding:calc(var(--pw) * .032);border-radius:calc(var(--pw) * .16);
+  background:linear-gradient(150deg,var(--ti-hi) 0%,var(--ti) 20%,var(--ti-lo) 50%,var(--ti) 80%,var(--ti-hi) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),inset 0 0 0 calc(var(--pw) * .013) var(--bezel),0 60px 90px -40px rgba(0,0,0,.9),0 0 0 1px rgba(0,0,0,.5)}
+.phone img{width:100%;height:auto;aspect-ratio:9/19.5;object-fit:cover;object-position:50% 0;border-radius:calc(var(--pw) * .13);background:var(--deep)}
+.phone::after{content:"";position:absolute;top:calc(var(--pw) * .062);left:50%;width:calc(var(--pw) * .042);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:var(--bezel);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+
+/* ---------- living water: caustics, light shafts, silhouettes, motes ---------- */
+.scene{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.scene>*{position:absolute}
+.caustics{overflow:hidden;opacity:0;transition:opacity 2.4s ease}
+.caustics.on{opacity:var(--co,.5)}
+/* each layer is one tile larger only on the sides it drifts away from, then loops seamlessly */
+.caustics i{position:absolute;inset:calc(var(--t) * -1) 0 0 calc(var(--t) * -1);background-image:var(--caustic);background-size:var(--t) var(--t);background-repeat:repeat;animation:drift-a 30s linear infinite}
+.caustics i:first-child{--t:340px}
+.caustics i+i{--t:470px;inset:calc(var(--t) * -1) calc(var(--t) * -1) 0 0;opacity:.75;animation-name:drift-b;animation-duration:43s}
+@keyframes drift-a{to{transform:translate3d(var(--t),var(--t),0)}}
+@keyframes drift-b{to{transform:translate3d(calc(var(--t) * -1),var(--t),0)}}
+.ceiling{inset:0 -20% auto;height:56%;transform:scaleY(.5);transform-origin:50% 0;--co:.6;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.5) 45%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.5) 45%,transparent 100%)}
+
+.shafts{inset:-4% -8% 0;transform-origin:50% 0;animation:sway 19s ease-in-out -6s infinite alternate}
+.shafts i{position:absolute;top:-3%;left:var(--x);width:var(--w);height:112%;transform-origin:50% 0;transform:rotate(var(--r));
+  background:linear-gradient(90deg,rgba(196,240,255,0),rgba(196,240,255,var(--a,.2)) 50%,rgba(196,240,255,0));
+  clip-path:polygon(36% 0,64% 0,100% 100%,0 100%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.5) 40%,transparent 84%);mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.5) 40%,transparent 84%);
+  animation:shimmer var(--d,9s) ease-in-out var(--dl,0s) infinite alternate}
+@keyframes shimmer{from{opacity:.28}to{opacity:1}}
+@keyframes sway{from{transform:rotate(-2deg)}to{transform:rotate(2.2deg)}}
+
+.sil svg{display:block;width:100%;height:auto;overflow:visible}
+.sil .s1{stop-color:var(--sil-hi)}
+.sil .s2{stop-color:var(--sil-lo)}
+.whale{left:0;bottom:7%;width:clamp(640px,74vw,1180px);animation:swim-l 100s linear -42s infinite}
+.whale svg{opacity:.6;animation:bob 12s ease-in-out -3s infinite alternate}
+.whale .fluke{transform-origin:872px 174px;animation:fluke 6.5s ease-in-out infinite alternate}
+.manta{left:0;top:5%;width:clamp(180px,22vw,330px);animation:glide 72s linear -30s infinite}
+.manta svg{opacity:.85;animation:flap 5.2s ease-in-out infinite alternate}
+@keyframes swim-l{from{transform:translate3d(100vw,0,0)}to{transform:translate3d(-100%,0,0)}}
+@keyframes swim-r{from{transform:translate3d(-100%,0,0)}to{transform:translate3d(100vw,0,0)}}
+@keyframes bob{from{transform:translateY(-3%) rotate(-1.2deg)}to{transform:translateY(4%) rotate(1.4deg)}}
+@keyframes fluke{from{transform:rotate(-7deg)}to{transform:rotate(8deg)}}
+@keyframes glide{from{transform:translate3d(104vw,70%,0) rotate(-68deg)}to{transform:translate3d(-130%,-30%,0) rotate(-84deg)}}
+@keyframes flap{from{transform:scale(1,1)}to{transform:scale(.8,1.06)}}
+.motes{inset:0;width:100%;height:100%}
+
+/* paused when off screen, and always for reduced motion (each layer holds its first frame) */
+.live.is-off .scene *,.live.is-off .shark,.live.is-off .shark *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){
+  .scene *,.shark,.shark *,.dive i{animation-play-state:paused!important}
+  .film{display:none}
+  .caustics{transition:none}
+}
+
+/* ---------- 1. hero ---------- */
+.hero{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:center;
+  min-height:max(640px,min(100vh,1040px));min-height:max(640px,min(100svh,1040px));
+  background:
+    radial-gradient(110% 60% at 50% -14%,rgba(52,194,238,.9) 0%,rgba(52,194,238,.32) 42%,rgba(52,194,238,0) 72%),
+    linear-gradient(180deg,var(--shallow) 0%,var(--mid) 36%,var(--deep) 72%,var(--abyss) 100%)}
+.hero .scene::after{content:"";position:absolute;inset:auto 0 0;height:22%;background:linear-gradient(180deg,rgba(3,20,42,0),var(--abyss))}
+/* key art: a frame from the game's own Big Blue, under the light, the caustics and the motes.
+   Darkened on the copy side so the words stay crisp; on a phone the whole frame dims behind the copy. */
+.keyart{inset:0}
+.keyart img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:64% 42%}
+.keyart::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(3,20,42,.95) 0%,rgba(3,20,42,.84) 28%,rgba(3,20,42,.4) 56%,rgba(3,20,42,.06) 82%),
+  linear-gradient(180deg,rgba(5,33,63,.5) 0%,rgba(5,33,63,0) 26%,rgba(3,20,42,0) 64%,var(--abyss) 100%)}
+.has-art .whale,.has-art .manta{display:none}
+@media (max-width:899px){
+  .keyart img{object-position:70% 50%}
+  .keyart::after{background:linear-gradient(180deg,rgba(3,20,42,.72) 0%,rgba(3,20,42,.66) 40%,rgba(3,20,42,.84) 72%,var(--abyss) 100%)}
+}
+.hero-inner{position:relative;padding-block:clamp(76px,11svh,120px) clamp(104px,14svh,150px)}
+.hero-copy{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(16px,2.2vw,24px);max-width:820px}
+.logo{width:min(560px,100%);margin-left:-1.4%;filter:drop-shadow(0 18px 34px rgba(2,12,25,.45))}
+/* the logo art carries its own underwater backdrop: feather its edges into the scene */
+.logo img,.final-logo img{width:100%;height:auto;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 5%,#000 95%,transparent 100%),linear-gradient(180deg,transparent 0%,#000 18%,#000 88%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0%,#000 5%,#000 95%,transparent 100%),linear-gradient(180deg,transparent 0%,#000 18%,#000 88%,transparent 100%);
+  mask-composite:intersect}
+.hook{font-size:clamp(2.3rem,9.4vw,4.6rem);max-width:100%}
+.hook span{display:block}
+.hero .stores{margin-top:6px}
+.dive{position:absolute;z-index:1;left:0;right:0;bottom:16px;width:max-content;margin-inline:auto;display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 14px;font:500 .875rem/1 var(--ui);letter-spacing:.06em;color:var(--mist);text-decoration:none}
+.dive i{display:block;width:2px;height:44px;border-radius:2px;background:linear-gradient(180deg,var(--gold),rgba(255,213,74,0));transform-origin:50% 0;animation:cue 2.8s ease-in-out -1.2s infinite}
+@keyframes cue{0%{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+@media (min-width:1000px){
+  .whale{bottom:9%}
+  .manta{top:9%}
+}
+
+/* ---------- 2. reveal ---------- */
+.reveal{position:relative;padding-block:clamp(88px,11vw,170px) clamp(72px,10vw,150px)}
+.reveal h2{font-size:clamp(3rem,10.6vw,9.5rem);line-height:.88}
+.reveal h2 span{display:block}
+.reveal-sub{margin-top:clamp(26px,3.4vw,46px);max-width:31ch;font:500 clamp(1.2rem,2.3vw,1.75rem)/1.35 var(--ui);color:var(--mist)}
+
+/* ---------- 3. feature beats ---------- */
+.beats{position:relative;overflow-x:clip;padding-block:clamp(48px,7vw,110px) clamp(96px,12vw,180px);
+  background:radial-gradient(55% 38% at 22% 42%,rgba(17,128,184,.26),rgba(17,128,184,0) 72%)}
+.beats-grid{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"b1" "ph" "b2" "b3";gap:clamp(56px,9vw,104px)}
+.beat{display:flex;flex-direction:column;align-items:flex-start;gap:18px;min-width:0}
+.b1{grid-area:b1}.b2{grid-area:b2}.b3{grid-area:b3}
+.beat h3{font-size:clamp(3.4rem,15vw,8rem)}
+.beat p{max-width:44ch;color:var(--mist);font-size:clamp(1.0625rem,1.35vw,1.2rem)}
+.ticks{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.ticks li{display:flex;gap:12px;align-items:baseline;font:500 1.0625rem/1.4 var(--ui);color:var(--foam)}
+.ticks li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--gold);transform:translateY(-2px)}
+.beat-phone{grid-area:ph;position:relative;justify-self:center;isolation:isolate}
+.beat-phone::before{content:"";position:absolute;inset:-18% -14%;z-index:-1;background:radial-gradient(closest-side,rgba(52,194,238,.4),rgba(17,128,184,.16) 55%,rgba(17,128,184,0))}
+.beat-phone .phone{--pw:min(310px,76vw);transform:perspective(1600px) rotateY(-12deg) rotateX(4deg) rotate(2deg)}
+@media (min-width:1000px){
+  .beats-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);grid-template-areas:"ph b1" "ph b2" "ph b3";column-gap:clamp(64px,7vw,128px);row-gap:0}
+  .beat{min-height:min(72svh,660px);justify-content:center;padding-block:48px}
+  .beat-phone{position:sticky;top:max(24px,calc(50svh - 390px));align-self:start}
+  .beat-phone .phone{--pw:min(340px,26vw)}
+}
+
+/* ---------- 4. the places, stacking as you scroll ---------- */
+.places{position:relative;padding-block:clamp(56px,8vw,120px) clamp(48px,7vw,96px)}
+.places-head{display:flex;flex-direction:column;gap:18px;margin-bottom:clamp(36px,5vw,72px)}
+.places-head h2{font-size:clamp(3.1rem,12vw,8rem)}
+.places-head p{max-width:46ch;color:var(--mist);font-size:clamp(1.0625rem,1.5vw,1.25rem)}
+.deck{display:flex;flex-direction:column;gap:clamp(24px,4vw,40px)}
+.place{--i:0;position:sticky;top:calc(env(safe-area-inset-top, 0px) + 14px + var(--i) * 14px);height:min(720px,calc(100svh - 56px));
+  display:flex;flex-direction:column;overflow:hidden;border-radius:clamp(26px,3vw,40px);border:1px solid rgba(255,255,255,.07);
+  background:radial-gradient(90% 60% at 70% 100%,var(--glow),transparent 70%),linear-gradient(165deg,var(--ground) 0%,var(--ground-deep) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 -24px 60px -28px rgba(0,0,0,.9)}
+.place.fresh{--accent:var(--fresh);--glow:rgba(143,224,127,.3);--ground:var(--fresh-ground);--ground-deep:var(--fresh-deep)}
+.place.reef{--i:1;--accent:var(--reef);--glow:rgba(191,147,255,.32);--ground:var(--reef-ground);--ground-deep:var(--reef-deep)}
+.place.shop{--i:2;--accent:var(--shop);--glow:rgba(255,168,87,.3);--ground:var(--shop-ground);--ground-deep:var(--shop-deep)}
+.place-copy{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:28px 22px 0;min-width:0}
+.when{font:600 .9375rem/1 var(--ui);color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:7px 14px 8px}
+.place h3{font-size:clamp(2.7rem,12vw,6.5rem)}
+.place-copy p:last-child{color:var(--mist);max-width:42ch}
+.place-shot{flex:1 1 auto;min-height:0;display:flex;justify-content:center;align-items:flex-start;padding-top:24px}
+.place-shot .phone{--pw:min(270px,64vw);transform:rotate(-3deg)}
+.place.reef .place-shot .phone{transform:rotate(3deg)}
+@media (min-width:760px){
+  .place{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);top:calc(env(safe-area-inset-top, 0px) + 32px + var(--i) * 18px);height:min(760px,calc(100svh - 72px))}
+  .place-copy{align-self:center;gap:18px;padding:clamp(36px,5vw,72px)}
+  .place-copy p:last-child{font-size:clamp(1.0625rem,1.4vw,1.2rem)}
+  .place-shot{padding-top:clamp(40px,5vw,64px)}
+  .place-shot .phone{--pw:min(340px,32vw)}
+}
+@media (max-height:600px){
+  .place{position:relative;top:auto;height:auto}
+  .place-shot{height:440px}
+}
+
+/* ---------- 5. the final level ---------- */
+.bigblue{position:relative;isolation:isolate;overflow:hidden;padding-block:clamp(96px,12vw,180px) clamp(150px,18vw,260px);
+  background:
+    radial-gradient(70% 40% at 50% 18%,rgba(17,128,184,.5),rgba(17,128,184,0) 70%),
+    linear-gradient(180deg,var(--abyss) 0%,var(--deep) 16%,var(--deep) 40%,var(--abyss) 100%)}
+.bigblue .shafts{inset:-2% -8% 20%}
+/* the Big Blue from the visitors' side of the glass, faint behind the section */
+.bigblue .keyart img{object-position:56% 62%;opacity:.6}
+.bigblue .keyart::after{background:
+  linear-gradient(180deg,var(--abyss) 0%,rgba(3,20,42,.5) 20%,rgba(3,20,42,.55) 62%,var(--abyss) 100%),
+  linear-gradient(90deg,rgba(3,20,42,.72) 0%,rgba(3,20,42,.22) 62%,rgba(3,20,42,.4) 100%)}
+.floor{inset:auto -20% 0;height:46%;transform:scaleY(.42);transform-origin:50% 100%;--co:.42;
+  -webkit-mask-image:linear-gradient(0deg,transparent 0%,#000 26%,rgba(0,0,0,.4) 60%,transparent 100%);mask-image:linear-gradient(0deg,transparent 0%,#000 26%,rgba(0,0,0,.4) 60%,transparent 100%)}
+.bigblue .scene::after{content:"";position:absolute;inset:auto 0 0;height:36%;background:linear-gradient(180deg,rgba(116,208,255,0) 0%,rgba(116,208,255,.07) 55%,rgba(3,20,42,0) 100%)}
+.bb-head{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.bb-when{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;font:500 1.0625rem/1.3 var(--ui);color:var(--mist)}
+.bb-when b{font-weight:600;color:var(--gold-ink);background:var(--gold);border-radius:999px;padding:5px 14px 6px}
+.bb-title{position:relative;z-index:1;font-size:clamp(4.6rem,22vw,13.5rem);line-height:.8;letter-spacing:-.028em;color:var(--foam)}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .bb-title{background:linear-gradient(180deg,var(--foam) 25%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+}
+.shark{position:absolute;z-index:0;left:calc(50% - 50vw);top:24%;width:clamp(560px,76vw,1160px);pointer-events:none;animation:swim-r 74s linear -30s infinite}
+.shark svg{opacity:.78;scale:-1 1;animation:bob 14s ease-in-out -5s infinite alternate}
+.shark .tail{transform-origin:884px 156px;animation:sweep 3.6s ease-in-out infinite alternate}
+.shark pattern circle{fill:var(--spot)}
+@keyframes sweep{from{transform:scaleX(1)}to{transform:scaleX(.7)}}
+.bb-body{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(44px,6vw,72px);margin-top:clamp(36px,5vw,64px)}
+.bb-copy{display:flex;flex-direction:column;gap:clamp(28px,4vw,44px);min-width:0}
+.bb-lead{font:500 clamp(1.35rem,2.6vw,2rem)/1.3 var(--ui);max-width:26ch}
+.exhibits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px clamp(20px,4vw,48px)}
+.exhibits h3{font:600 .95rem/1.2 var(--ui);color:var(--gold);margin-bottom:8px}
+.exhibits li{padding-block:11px;border-top:1px solid var(--line);font:500 clamp(1.02rem,1.6vw,1.25rem)/1.3 var(--ui)}
+.bb-floor{font:600 clamp(1.3rem,2.4vw,1.8rem)/1.3 var(--ui);color:var(--blue)}
+.bb-phone{position:relative;justify-self:center;isolation:isolate}
+.bb-phone::before{content:"";position:absolute;inset:-14% -40%;z-index:-1;background:radial-gradient(closest-side,rgba(116,208,255,.3),rgba(17,128,184,.12) 55%,rgba(17,128,184,0))}
+.bb-phone .phone{--pw:min(300px,74vw);transform:perspective(1600px) rotateY(10deg) rotate(-2deg)}
+@media (min-width:1000px){
+  .bb-body{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:center}
+  .bb-phone .phone{--pw:min(330px,25vw)}
+}
+
+/* ---------- 6. level journey ---------- */
+.journey{position:relative;padding-block:clamp(96px,12vw,180px)}
+.journey-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(40px,5vw,64px)}
+.journey-head{display:flex;flex-direction:column;gap:18px;align-self:start}
+.journey-head h2{font-size:clamp(2.9rem,10.5vw,6.5rem)}
+.journey-head p{max-width:36ch;color:var(--mist)}
+.levels{position:relative;display:flex;flex-direction:column}
+.levels::before{content:"";position:absolute;left:41px;top:34px;bottom:52px;width:2px;background:linear-gradient(180deg,var(--surface),var(--shallow) 55%,var(--gold))}
+.lv{position:relative;display:grid;grid-template-columns:84px minmax(0,1fr);gap:16px;align-items:center;padding-block:8px}
+.star{position:relative;justify-self:center;display:grid;place-items:center;width:50px;height:50px}
+.star svg{position:absolute;inset:0;width:100%;height:100%;fill:var(--gold);stroke:var(--gold);stroke-width:9;stroke-linejoin:round;overflow:visible;filter:drop-shadow(0 4px 12px rgba(255,213,74,.22))}
+.star b{position:relative;padding-top:5px;font:700 1.05rem/1 var(--ui);color:var(--gold-ink);font-variant-numeric:tabular-nums}
+.lv p{color:var(--mist);font-size:clamp(1.0625rem,1.4vw,1.25rem);line-height:1.4}
+.lv strong{color:var(--foam);font-weight:600}
+.lv.big .star{width:64px;height:64px}
+.lv.big .star b{font-size:1.3rem}
+.lv.reef strong{color:var(--reef)}
+.lv.shop strong{color:var(--shop)}
+.lv.finale{margin-top:40px}
+.lv.finale::before{content:"";position:absolute;left:41px;top:-44px;height:44px;width:2px;background:repeating-linear-gradient(180deg,var(--abyss) 0 6px,transparent 6px 12px)}
+.lv.finale .star{width:84px;height:84px}
+.lv.finale .star svg{filter:drop-shadow(0 0 22px rgba(255,213,74,.45))}
+.lv.finale .star b{font-size:1.55rem}
+.lv.finale strong{color:var(--blue);font:800 clamp(1.9rem,4vw,2.6rem)/1 var(--display);font-stretch:75%;letter-spacing:-.01em}
+.tag{display:inline-block;margin-left:8px;vertical-align:.18em;font:600 .8rem/1 var(--ui);letter-spacing:.01em;padding:5px 10px 6px;border-radius:999px;white-space:nowrap}
+.lv.reef .tag{background:var(--reef);color:var(--reef-ink)}
+.lv.shop .tag{background:var(--shop);color:var(--shop-ink)}
+.lv.finale .tag{background:var(--gold);color:var(--gold-ink)}
+.lv.beyond{margin-top:36px}
+.beyond::before{content:"";position:absolute;left:41px;top:-40px;height:40px;width:2px;background:repeating-linear-gradient(180deg,var(--gold) 0 6px,transparent 6px 12px);opacity:.6}
+.lv.beyond .star{width:64px;height:64px}
+.lv.beyond .star b{font-size:1.05rem;letter-spacing:-.02em;padding-top:4px}
+@media (min-width:1000px){
+  .journey-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:start}
+  .journey-head{position:sticky;top:120px}
+  .journey-head h2{font-size:clamp(2.9rem,6vw,5.5rem)}
+}
+
+/* ---------- 7. made in Perth ---------- */
+.maker{position:relative;padding-block:clamp(88px,11vw,170px);
+  background:radial-gradient(45% 50% at 86% 52%,rgba(255,213,74,.07),rgba(255,213,74,0) 70%)}
+.maker-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(32px,5vw,72px)}
+.maker h2{font-size:clamp(2.9rem,10.5vw,7rem)}
+.maker-copy{display:flex;flex-direction:column;gap:22px;max-width:52ch;min-width:0}
+.maker-copy>p{color:var(--mist);font-size:clamp(1.0625rem,1.4vw,1.2rem)}
+.cast{display:flex;flex-direction:column}
+.cast li{padding-block:12px;border-top:1px solid var(--line);font:600 clamp(1.45rem,3vw,2.1rem)/1.15 var(--ui);color:var(--foam)}
+.cast li:last-child{border-bottom:1px solid var(--line)}
+
+@media (min-width:1000px){.maker-grid{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:end}}
+
+/* ---------- 8. final call ---------- */
+.final{position:relative;isolation:isolate;overflow:hidden;padding-block:clamp(110px,13vw,200px) clamp(110px,13vw,190px);text-align:center;
+  background:
+    radial-gradient(60% 50% at 50% 38%,rgba(52,194,238,.3),rgba(17,128,184,.1) 55%,rgba(17,128,184,0) 80%),
+    linear-gradient(180deg,var(--abyss) 0%,var(--deep) 45%,var(--trench) 100%)}
+.final .ceiling{--co:.35;height:44%}
+.final .shafts{inset:-2% 0 30%}
+.final-inner{display:flex;flex-direction:column;align-items:center;gap:22px}
+.final-logo{width:min(400px,84%);filter:drop-shadow(0 18px 34px rgba(2,12,25,.5))}
+.final .scene::before,.bigblue .scene::before{content:"";position:absolute;z-index:1;inset:0 0 auto;height:22%;background:linear-gradient(180deg,var(--abyss),rgba(3,20,42,0))}
+.final .ceiling{-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 30%,rgba(0,0,0,.45) 60%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 30%,rgba(0,0,0,.45) 60%,transparent 100%)}
+.final h2{font-size:clamp(3rem,11vw,7.5rem);max-width:12ch}
+.final .stores,.final .free{justify-content:center}
+.final .stores{margin-top:8px}
+@media (max-width:479px){.final .stores{max-width:420px}}
+
+/* ---------- 9. footer ---------- */
+.foot{background:var(--trench);border-top:1px solid var(--line);padding-block:36px 40px}
+.foot-inner{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;align-items:center;font:500 .95rem/1.5 var(--ui);color:var(--mist)}
+.contact{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.mail{user-select:all;-webkit-user-select:all;color:var(--foam)}
+.copy{font:600 .85rem/1 var(--ui);color:var(--abyss);background:var(--foam);border:0;border-radius:999px;padding:8px 14px;cursor:pointer}
+.copy:hover{background:var(--gold)}
+.copied{color:var(--gold)}
+.foot nav{display:flex;flex-wrap:wrap;gap:24px}
+.foot a{color:var(--foam);text-decoration-color:rgba(238,249,255,.35);text-underline-offset:4px}
+.foot a:hover{text-decoration-color:var(--gold)}
+
+/* ---------- clips recorded in the game: fade in over their still once they are playing ---------- */
+.film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+.film.on{opacity:1}
+.keyart .film{object-position:64% 42%}
+@media (max-width:899px){.keyart .film{object-position:70% 50%}}
+
+/* ---------- the store buttons catch the light now and then ---------- */
+.store{position:relative;overflow:hidden}
+.store::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,rgba(238,249,255,0) 36%,rgba(238,249,255,.2) 50%,rgba(238,249,255,0) 64%);transform:translateX(-120%)}
+@media (prefers-reduced-motion:no-preference){
+  .store::after{animation:sheen 7.5s ease-in-out 2.6s infinite}
+  .store+.store::after{animation-delay:2.95s}
+  .live.is-off .store::after{animation-play-state:paused}
+}
+@keyframes sheen{0%,74%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+
+/* ---------- 2b. the living tank ---------- */
+.alive{position:relative;padding-block:clamp(24px,4vw,64px) clamp(80px,10vw,150px)}
+.alive-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(30px,4vw,60px);align-items:center}
+.alive-copy{display:flex;flex-direction:column;align-items:flex-start;gap:20px;min-width:0}
+.alive h2{font-size:clamp(3rem,11vw,7rem)}
+.alive-copy p{max-width:40ch;color:var(--mist);font-size:clamp(1.0625rem,1.4vw,1.2rem)}
+.seg{display:inline-flex;gap:4px;padding:4px;margin-top:6px;border-radius:999px;background:var(--glass);border:1px solid var(--line)}
+.seg button{font:600 1rem/1 var(--ui);color:var(--mist);background:none;border:0;border-radius:999px;padding:12px 18px 13px;cursor:pointer;transition:background .25s ease,color .25s ease}
+.seg button:hover{color:var(--foam)}
+.seg button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink)}
+.window{position:relative;isolation:isolate;min-width:0;--spill:rgba(52,194,238,.34)}
+.window.reef-on{--spill:rgba(191,147,255,.36)}
+.window::before{content:"";position:absolute;inset:10% -5% -9%;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,var(--spill),rgba(17,128,184,0));transition:background .7s ease}
+.glass{position:relative;aspect-ratio:96/69;max-width:100%;overflow:hidden;border-radius:clamp(18px,2.4vw,32px);background:var(--bezel);border:1px solid rgba(238,249,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 50px 90px -42px rgba(0,0,0,.95)}
+.layer{position:absolute;inset:0;opacity:0;transition:opacity .7s ease}
+.layer.show{opacity:1}
+.layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.layer .film{transition-duration:.6s}
+.window figcaption{margin-top:14px;font:500 .9375rem/1.35 var(--ui);color:var(--mist)}
+@media (min-width:1000px){.alive-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
+
+/* the phone beside the three beats shows a different screen for each */
+.phone .screens{position:relative;aspect-ratio:9/19.5;overflow:hidden;border-radius:calc(var(--pw) * .13);background:var(--deep)}
+.phone .screens img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;border-radius:0;opacity:0;transition:opacity .6s ease}
+.phone .screens img.show{opacity:1}
+.screen-name{margin-top:22px;text-align:center;font:500 .9375rem/1.3 var(--ui);color:var(--mist)}
+
+/* ---------- 4b. the regulars ---------- */
+.regulars{position:relative;overflow:hidden;padding-block:clamp(72px,10vw,150px) clamp(64px,9vw,130px)}
+.reg-head{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(36px,5vw,72px);align-items:center;margin-bottom:clamp(40px,5vw,72px)}
+.reg-copy{display:flex;flex-direction:column;gap:18px;min-width:0}
+.reg-head h2{font-size:clamp(2.9rem,10.5vw,7rem);max-width:13ch}
+.reg-copy p{max-width:46ch;color:var(--mist);font-size:clamp(1.0625rem,1.5vw,1.25rem)}
+.reg-phone{position:relative;justify-self:center;isolation:isolate}
+.reg-phone::before{content:"";position:absolute;inset:-12% -30%;z-index:-1;background:radial-gradient(closest-side,rgba(255,213,74,.16),rgba(255,213,74,0))}
+.reg-phone .phone{--pw:min(280px,70vw);transform:perspective(1600px) rotateY(9deg) rotate(-2.5deg)}
+@media (min-width:1000px){.reg-head{grid-template-columns:minmax(0,7fr) minmax(0,4fr)}.reg-phone .phone{--pw:min(300px,23vw)}}
+.marquee{display:flex;flex-direction:column;gap:16px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}
+.belt{display:flex;gap:16px;width:max-content}
+.belt ul{display:flex;gap:16px}
+.cust{display:grid;grid-template-columns:64px minmax(0,1fr);gap:6px 14px;align-content:start;width:min(330px,78vw);padding:16px 18px 18px 16px;border-radius:22px;background:var(--glass);border:1px solid var(--line)}
+.face{grid-row:1 / span 2;width:64px;height:64px;border-radius:50%;background:var(--deep) url(img/faces.webp) 0 0 / 800% 500% no-repeat;box-shadow:0 0 0 2px rgba(238,249,255,.2)}
+.cust b{align-self:end;font:600 1.1rem/1.2 var(--ui);color:var(--foam)}
+.cust b i{display:inline-block;width:9px;height:9px;margin-left:8px;border-radius:50%;background:var(--fresh);vertical-align:.06em}
+.cust.salt b i{background:var(--reef)}
+.cust q{font-size:.98rem;line-height:1.42;color:var(--mist);quotes:"\201C" "\201D"}
+.reg-key{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font:500 .9375rem/1.3 var(--ui);color:var(--mist)}
+.reg-key span{display:inline-flex;align-items:center;gap:8px}
+.reg-key i{width:9px;height:9px;border-radius:50%;background:var(--fresh)}
+.reg-key span+span i{background:var(--reef)}
+@media (prefers-reduced-motion:no-preference){
+  .belt{animation:belt var(--dur,110s) linear infinite}
+  .belt.back{animation-direction:reverse;--dur:128s}
+  .marquee:hover .belt,.regulars.is-off .belt{animation-play-state:paused}
+}
+@media (prefers-reduced-motion:reduce){
+  .marquee{overflow-x:auto;-webkit-mask-image:none;mask-image:none;padding-bottom:10px}
+  .belt ul+ul{display:none}
+}
+@keyframes belt{to{transform:translate3d(calc(-50% - 8px),0,0)}}
+
+/* ---------- the hero comes up through the water as the page opens ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .hero-copy>.logo{animation:surface-logo 1.25s cubic-bezier(.16,.84,.3,1) .1s both}
+  .hook span,.hero-copy>.kind,.hero-copy>.stores,.hero-copy>.free{animation:surface .9s cubic-bezier(.16,.84,.3,1) both}
+  .hook span{animation-delay:.42s}
+  .hook span+span{animation-delay:.58s}
+  .hero-copy>.kind{animation-delay:.78s}
+  .hero-copy>.stores{animation-delay:.9s}
+  .hero-copy>.free{animation-delay:1.02s}
+  .dive{animation:fade-in 1s ease 1.5s both}
+}
+@keyframes surface{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+@keyframes surface-logo{from{opacity:0;transform:translateY(26px) scale(1.07);filter:blur(12px) drop-shadow(0 18px 34px rgba(2,12,25,.45))}to{opacity:1;transform:none;filter:blur(0) drop-shadow(0 18px 34px rgba(2,12,25,.45))}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+
+/* ---------- scroll reveals: driven by scroll position, visible at rest, off for reduced motion ---------- */
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()){
+    .reveal h2 span{animation:light-up linear forwards;animation-timeline:view();animation-range:entry 0% cover 42%}
+    .rise{animation:rise linear forwards;animation-timeline:view();animation-range:entry 0% entry 80%}
+    .beats{view-timeline:--beats block}
+    .beat-phone .phone{animation:turn linear both;animation-timeline:--beats;animation-range:cover 5% cover 95%}
+    .levels{view-timeline:--levels block}
+    .levels::before{transform-origin:50% 0;animation:draw linear both;animation-timeline:--levels;animation-range:cover 14% cover 64%}
+    .lv .star{animation:pop linear both;animation-timeline:view();animation-range:entry 5% entry 95%}
+  }
+}
+@keyframes light-up{from{color:rgba(238,249,255,.13);transform:translateY(.12em)}to{color:var(--foam);transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(44px)}to{opacity:1;transform:none}}
+@keyframes draw{from{transform:scaleY(0)}to{transform:none}}
+@keyframes pop{from{transform:scale(.25) rotate(-70deg)}to{transform:none}}
+@keyframes turn{from{transform:perspective(1600px) rotateY(-20deg) rotateX(6deg) rotate(4deg)}to{transform:perspective(1600px) rotateY(10deg) rotateX(-2deg) rotate(-2deg)}}
+</style>
+
+<svg class="defs" aria-hidden="true" focusable="false">
+  <symbol id="star" viewBox="0 0 100 100"><path d="M50 7L63.5 34.4 93.7 38.8 71.9 60.1 77 90.2 50 76 23 90.2 28.1 60.1 6.3 38.8 36.5 34.4Z"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.8"/><path d="M10.5 18.3h3"/></symbol>
+</svg>
+
+<header class="hero live has-art" id="top">
+  <div class="scene" aria-hidden="true">
+    <div class="keyart"><img src="img/keyart.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async"><video class="film" muted loop playsinline disablepictureinpicture preload="none" tabindex="-1" data-src="vid/hero.mp4"></video></div>
+    <div class="ceiling caustics"><i></i><i></i></div>
+    <div class="whale sil">
+      <svg viewBox="0 0 1000 360" focusable="false">
+        <defs><linearGradient id="g-whale" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s1"/><stop offset="1" class="s2"/></linearGradient></defs>
+        <g fill="url(#g-whale)">
+          <path d="M14 176C40 160 90 142 160 132C240 118 340 100 440 98C540 96 610 106 650 116C664 104 676 92 694 88C690 100 696 112 712 122C770 134 830 148 880 160L892 162L892 186C850 194 800 206 740 220C660 238 560 256 470 262C510 292 550 322 598 346C568 350 488 320 420 290C392 278 366 268 340 264C260 256 170 238 100 216C60 204 30 192 14 176Z"/>
+          <path class="fluke" d="M870 158C896 146 918 126 940 110C958 98 978 90 998 92C990 112 978 136 966 162L960 172C974 196 988 222 998 244C978 246 956 236 936 222C914 208 892 196 870 190Z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="shafts">
+      <i style="--x:10%;--w:10%;--r:17deg;--a:.2;--d:11s;--dl:-3s"></i>
+      <i style="--x:24%;--w:5%;--r:12deg;--a:.28;--d:7s;--dl:-1s"></i>
+      <i style="--x:35%;--w:12%;--r:6deg;--a:.16;--d:13s;--dl:-8s"></i>
+      <i style="--x:50%;--w:6%;--r:1deg;--a:.24;--d:9s;--dl:-4s"></i>
+      <i style="--x:61%;--w:11%;--r:-5deg;--a:.16;--d:12s;--dl:-6s"></i>
+      <i style="--x:75%;--w:4%;--r:-10deg;--a:.24;--d:8s;--dl:-2s"></i>
+      <i style="--x:85%;--w:9%;--r:-15deg;--a:.15;--d:14s;--dl:-9s"></i>
+    </div>
+    <div class="manta sil">
+      <svg viewBox="0 0 600 420" focusable="false">
+        <defs><linearGradient id="g-manta" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s1"/><stop offset="1" class="s2"/></linearGradient></defs>
+        <path fill="url(#g-manta)" d="M256 108C250 92 252 74 262 66C270 74 276 90 282 104L318 104C324 90 330 74 338 66C348 74 350 92 344 108C400 112 480 152 588 236C500 232 410 246 368 272C350 288 330 300 312 306L302 418L298 418L288 306C270 300 250 288 232 272C190 246 100 232 12 236C120 152 200 112 256 108Z"/>
+      </svg>
+    </div>
+    <canvas class="motes"></canvas>
+  </div>
+
+  <div class="hero-inner wrap">
+    <div class="hero-copy">
+      <h1 class="logo"><img src="img/logo.webp" alt="Tankscaper" width="640" height="263" fetchpriority="high" decoding="async"></h1>
+      <p class="hook display"><span>Start with one old tank.</span> <span>Build up to a whale.</span></p>
+      <p class="kind">A 3D aquarium tycoon game for iPhone and Android.</p>
+      <ul class="stores">
+        <li class="store"><svg aria-hidden="true"><use href="#ic-phone"/></svg><span><small>Coming soon to the</small><b>App Store</b></span></li>
+        <li class="store"><svg aria-hidden="true"><use href="#ic-phone"/></svg><span><small>Coming soon on</small><b>Google Play</b></span></li>
+      </ul>
+      <p class="free"><b>Free to play.</b></p>
+    </div>
+  </div>
+  <a class="dive" href="#reveal"><span>Dive in</span><i aria-hidden="true"></i></a>
+</header>
+
+<main>
+  <section class="reveal" id="reveal" aria-label="What's in the game">
+    <div class="wrap">
+      <h2 class="display"><span>Real rock.</span> <span>Real wood.</span> <span>Real plants.</span> <span>103 real species.</span></h2>
+      <p class="reveal-sub rise">57 freshwater and 46 reef species, in tanks from 30&nbsp;cm to 300&nbsp;cm.</p>
+    </div>
+  </section>
+
+  <section class="alive live" id="alive" aria-labelledby="alive-title">
+    <div class="wrap alive-grid">
+      <div class="alive-copy">
+        <h2 class="display rise" id="alive-title">And all of it moves.</h2>
+        <p>Stem plants bend from the base and the wave runs up to the tip, then on across the tank. Floating plants trail their roots. Pothos and monstera grow out of the top.</p>
+        <p>In the reef, sea fans, soft corals and branching corals all move with the flow.</p>
+        <div class="seg" role="group" aria-label="Tank to watch">
+          <button type="button" id="watch-fresh" data-tank="fresh" aria-pressed="true">Planted tank</button>
+          <button type="button" id="watch-reef" data-tank="reef" aria-pressed="false">Reef tank</button>
+        </div>
+      </div>
+      <figure class="window">
+        <div class="glass">
+          <div class="layer show" data-tank="fresh" data-cap="A 90 cm planted tank, recorded in the game.">
+            <img src="img/tank-poster.webp" alt="A planted tank in the game: red and green stem plants, Amazon swords and spider wood, floating plants trailing roots, pothos and monstera growing out of the top, and guppies and tetras swimming through" width="960" height="690" loading="lazy" decoding="async">
+            <video class="film" muted loop playsinline disablepictureinpicture preload="none" tabindex="-1" aria-hidden="true" data-src="vid/tank.mp4" data-anim="img/tank-anim.webp"></video>
+          </div>
+          <div class="layer" data-tank="reef" data-cap="A 60 cm nano reef, recorded in the game.">
+            <img src="img/reef-poster.webp" alt="A nano reef in the game: live rock with sea fans, branching corals, a purple anemone, a toadstool coral and zoanthids on white sand, with two clownfish and a yellow goby" width="960" height="690" loading="lazy" decoding="async">
+            <video class="film" muted loop playsinline disablepictureinpicture preload="none" tabindex="-1" aria-hidden="true" data-src="vid/reef.mp4" data-anim="img/reef-anim.webp"></video>
+          </div>
+        </div>
+        <figcaption id="watch-cap">A 90 cm planted tank, recorded in the game.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="beats" id="play" aria-labelledby="play-title">
+    <h2 class="sr-only" id="play-title">How it plays</h2>
+    <div class="wrap beats-grid">
+      <article class="beat b1">
+        <h3 class="display">Build.</h3>
+        <p>Pick a tank from a 30&nbsp;cm nano up to a 300&nbsp;cm show tank, then lay rock, wood, plants and sand the way you would in real life. Rocks settle, wood can lean, and plants grip what they sit on.</p>
+        <ul class="ticks">
+          <li>Seiryu, dragon stone, lava rock and live rock</li>
+          <li>Spider wood, manzanita, redmoor and driftwood, each in several shapes</li>
+          <li>Carpets, stem plants, Anubias, Java fern and moss</li>
+          <li>Pothos, monstera and peace lily growing out of the top</li>
+          <li>Filters, heaters and lights that matter to the fish</li>
+        </ul>
+      </article>
+      <figure class="beat-phone">
+        <div class="phone"><div class="screens"><img class="show" src="img/ui-build.webp" srcset="img/ui-build-600.webp 600w, img/ui-build.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The scaping screen: a planted 90 cm tank with the catalogue of rocks, wood and plants open under it" data-name="Scaping a 90&nbsp;cm tank" width="900" height="1950" fetchpriority="low" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADwAwCdASoMABoAPt1cpkyopSOiMAgBEBuJYgCdACPtClorMvqLszHIAP7jYVnGtZDAaCgaoPJEGkb6Ri1WczsiwfiAcuwBg43bG0r94P3CvY0x0Rc2vkSQ2OvPUUC/QnUsjnB1T/2+0UncNjFdR202KIxCFWpVgO/KHUfLsNsJ0429955I03cSxQAX8RnvYBIAAA==) center/cover"><img src="img/ui-name.webp" srcset="img/ui-name-600.webp 600w, img/ui-name.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="Following a guppy in the game: its card shows the name it has been given, Biscuit, above its care notes" data-name="Naming a fish" width="900" height="1950" loading="lazy" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAABwBACdASoMABoAPt1cpkyopSOiMAgBEBuJbACdMoADY1lmbmnwGvCltj68EAD+3aE0mR23IWYTlsgwBLk3HZEQii5L6/9OPhSULnbM2tptZDjcZ9YJFhSbIHiyOdFXciAAZcXEvND43q6V+T/X26tT2sMVB+tfRF1fW9FvoKexe9vhaIr7u27lNRK8Cc56E3J+2dv9mqcAAA==) center/cover"><img src="img/ui-goals.webp" srcset="img/ui-goals-600.webp 600w, img/ui-goals.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="Today's goals in the game: the daily streak, today's order from Bruno the baker and the goals under it" data-name="Today's goals and today's order" width="900" height="1950" loading="lazy" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAACQBACdASoMABoAPt1apkyopSOiMAgBEBuJZgCdMoLT/ujAJEUbP7hhLLle+gAA/uRQFt8zcuJkGH34m6vbwBGuwxkXfG32Kmgci5Z3SXlMgEw8/BtgAse0XKSRG8FqxHLY0XHGhx3V+LwAGk5F8oGwRWeyOgj0Ncq+rMDvSHyYBSrNGoagtMAA) center/cover"></div></div>
+        <figcaption class="screen-name" id="screen-name">Scaping a 90&nbsp;cm tank</figcaption>
+      </figure>
+      <article class="beat b2">
+        <h3 class="display">Decorate.</h3>
+        <p>Paint carpets and gravel, colour your corals and choose each fish's colour form. Give any fish a name and it stays on its card. Every species is modelled and swims the way it does in a real tank: tetras school, catfish work the sand, rays glide and settle. Female guppies are plainer and shorter in the tail than the males, as they are in a shop tank.</p>
+      </article>
+      <article class="beat b3">
+        <h3 class="display">Bring it to life.</h3>
+        <p>Feed the fish, clean the glass and test the water. Your tanks earn coins while you're away, and every level opens something new.</p>
+        <ul class="ticks">
+          <li>Daily goals, a daily gift and today's order</li>
+          <li>Seasonal events with prizes and keepsakes</li>
+          <li>25 achievements to earn</li>
+          <li>A collection book</li>
+          <li>Gems for premium floors, walls and perks</li>
+          <li>Golden fish</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="places" id="places" aria-labelledby="places-title">
+    <div class="wrap">
+      <header class="places-head rise">
+        <h2 class="display" id="places-title">Four places to build.</h2>
+        <p>Each one starts its own way, and Aunt Marina guides you through the story.</p>
+      </header>
+      <div class="deck">
+        <article class="place fresh">
+          <div class="place-copy">
+            <p class="when">From the start</p>
+            <h3 class="display">Freshwater Room</h3>
+            <p>It starts in Aunt Marina's living room, where you uncover her old tank. From there the room fills up, tank by tank: planted tanks, tetras, goldfish, plecos and the big exotics.</p>
+          </div>
+          <div class="place-shot">
+            <div class="phone"><img src="img/shot-fresh.webp" srcset="img/shot-fresh-600.webp 600w, img/shot-fresh.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The fish room: planted tanks along a green fluted wall under framed fish prints, with coins waiting above each and a sofa and coffee table in front" width="900" height="1950" fetchpriority="low" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAAAQBQCdASoMABoAPt1apkyopSOiMAgBEBuJaAC7MoHgA5/8Ww6yXz6fqywUKa9MIGgAAP7u7H1chiSBGjznMiFJg4B6c8+IUmxMGKwsayD6QFxOyju9nJkUTurow63IitHkl6KFoxiEPgMxoSGc1hgZA3UHyncnp77YcTv4nuF0EDpKBvi1+VGOO0Og16lBtd+gXUeGn+n8GQEpMGbgQXpnwBsU8GqqzRKueItgAAA=) center/cover"></div>
+          </div>
+        </article>
+        <article class="place reef">
+          <div class="place-copy">
+            <p class="when">Opens at level 3</p>
+            <h3 class="display">Reef Room</h3>
+            <p>It starts as a run-down garage. Clear it out and make it over, with a water station for water changes. Then come the corals, clownfish, tangs, anemones and the shrimp that clean them.</p>
+          </div>
+          <div class="place-shot">
+            <div class="phone"><img src="img/shot-reef.webp" srcset="img/shot-reef-600.webp 600w, img/shot-reef.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The reef room: reef tanks along a blue striped wall under jellyfish and eel prints, with a sofa and a table of test kits in front" width="900" height="1950" fetchpriority="low" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACQBACdASoMABoAPt1cpkyopSOiMAgBEBuJaACdEf/i2RWa4cDhO0+JWr8vigAA/vGDQrlstd1PYd2LcuQ8D0ONw8jMmHgkcX5li11pHopK+w+uE6+vuV4YFon2ehF8QbaKL8YeR3J+z0jiqIzgyro+KW/2Puh4PYwSxy8f5braC+VR572+IIf7LfLs5sdFH4PzZKvt/2+pv8Zu8FocPR2jc5X/MfU8UUDOIsC3DERxrZp7judnSmEwxYT+U9LsU9AAAA==) center/cover"></div>
+          </div>
+        </article>
+        <article class="place shop">
+          <div class="place-copy">
+            <p class="when">Opens at level 7</p>
+            <h3 class="display">Fish Shop</h3>
+            <p>Tidy it up, lay new floors and paint the walls. Then fill it with display tanks and tank walls while customers come in, browse and buy. Your regulars wear name tags, point at the fish they like and say what they think.</p>
+          </div>
+          <div class="place-shot">
+            <div class="phone"><img src="img/shot-shop.webp" srcset="img/shot-shop-600.webp 600w, img/shot-shop.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The fish shop seen from above: walls of stocked tanks, the freshwater and reef exotics tanks, two regulars browsing and the shopkeeper at the counter" width="900" height="1950" fetchpriority="low" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAACQBACdASoMABoAPt1cp0yopSOiMAgBEBuJQBOmUAS24y//sg7JDajlrkHbqMAA/unZQHig5RZ6xlWNyUPLbo8mhlpU3cLN0VwisPBMfiMwNooJiHsuaGnj+Z36AK4JA1+NOBp4jxhEJg9LCkJ5SsOIYgQh3/kXUQ+096CctN3e7IDeJxFuM1wxzvFnQrQHdviwKCTnqf/rcq0n9HT0icoVyP0OwQAA) center/cover"></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="regulars live" id="regulars" aria-labelledby="regulars-title">
+    <div class="wrap reg-head">
+      <div class="reg-copy">
+        <h2 class="display rise" id="regulars-title">Forty customers. Every one has a name.</h2>
+        <p>Each one asks for a tank. Build it the way they asked and they pay, say thanks, and come back later for another. Serve them and they become regulars, and regulars drop into your shop.</p>
+        <p>Here is what they ask for.</p>
+      </div>
+      <figure class="reg-phone">
+        <div class="phone"><img src="img/ui-journey.webp" srcset="img/ui-journey-600.webp 600w, img/ui-journey.webp 900w" sizes="(max-width: 899px) 70vw, 300px" alt="The journey screen in the game: a customer called Yuki asks for a tiny reef with a goby and a few corals, with a row of the regulars served so far and the achievements earned" width="900" height="1950" loading="lazy" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQBACdASoMABoAPt1apkyopSOiMAgBEBuJQBOl65A9+pFVKtMf7NmYAAD+7E15EUO9eeaA/Uf7uy2qpqWbgOQKL8BFaz7Ww9EogBDpv69xCblpBevGJTJBAaxDk2oy0ZTVEdoAAAA=) center/cover"></div>
+      </figure>
+    </div>
+    <div class="marquee">
+      <div class="belt"><ul><li class="cust"><span class="face" style="background-position:0.000% 0.000%"></span><b>Mrs Okafor<i></i></b><q>A tank for my grandson. Nothing fancy: a few plants and some bright little fish.</q></li><li class="cust"><span class="face" style="background-position:28.571% 0.000%"></span><b>Jess<i></i></b><q>A betta for my desk. Just the one, with some plants to hide in.</q></li><li class="cust"><span class="face" style="background-position:14.286% 0.000%"></span><b>Dev from the café<i></i></b><q>Something calm for the counter. Lots of green, a few peaceful fish.</q></li><li class="cust"><span class="face" style="background-position:85.714% 50.000%"></span><b>Gus<i></i></b><q>A betta, but with some friends who won't pick on him. Is that a thing?</q></li><li class="cust"><span class="face" style="background-position:57.143% 0.000%"></span><b>Priya<i></i></b><q>A shoal. One kind of fish, lots of them, all moving together.</q></li><li class="cust"><span class="face" style="background-position:14.286% 100.000%"></span><b>Aunty June<i></i></b><q>Livebearers, dear. Platies, mollies, that sort. I like a busy, cheerful tank.</q></li><li class="cust"><span class="face" style="background-position:100.000% 50.000%"></span><b>Wendy at the library<i></i></b><q>Something quiet for the reading corner. Rasboras, a gentle shoal, and plenty of plants.</q></li><li class="cust salt"><span class="face" style="background-position:42.857% 75.000%"></span><b>Zane<i></i></b><q>Blue fish. The brightest blue ones you've got, zipping about a reef.</q></li><li class="cust"><span class="face" style="background-position:100.000% 25.000%"></span><b>Nurse Abby<i></i></b><q>The night shift needs something soothing. Little tetras, a big glowing shoal of them.</q></li><li class="cust"><span class="face" style="background-position:0.000% 50.000%"></span><b>Coach Dan<i></i></b><q>Tough fish for the club rooms. Tiger barbs: fast, stripy, always in formation.</q></li><li class="cust"><span class="face" style="background-position:85.714% 75.000%"></span><b>Mr Petrov<i></i></b><q>I work nights. I want fish that come out when I get home: loaches, and something with them.</q></li><li class="cust"><span class="face" style="background-position:0.000% 25.000%"></span><b>Dr Chen<i></i></b><q>A planted jungle. Thick with greenery and not too many fish.</q></li><li class="cust salt"><span class="face" style="background-position:57.143% 50.000%"></span><b>Bruno the baker<i></i></b><q>A reef for the shop window. People should stop for the fish and stay for the bread.</q></li><li class="cust"><span class="face" style="background-position:28.571% 25.000%"></span><b>Bayside Primary<i></i></b><q>A community tank the kids can learn from. Four kinds of fish living together.</q></li><li class="cust"><span class="face" style="background-position:42.857% 50.000%"></span><b>Leila<i></i></b><q>Angelfish, gliding through tall plants. I saw it in a magazine and can't stop thinking about it.</q></li><li class="cust salt"><span class="face" style="background-position:0.000% 100.000%"></span><b>Chef Marco<i></i></b><q>A reef beside the pass. Ten fish, four kinds, all in good health. I notice everything.</q></li><li class="cust salt"><span class="face" style="background-position:0.000% 75.000%"></span><b>Skipper Mack<i></i></b><q>A yellow tang. Bright as a channel marker, with a proper bit of reef to cruise.</q></li><li class="cust"><span class="face" style="background-position:28.571% 75.000%"></span><b>Nonna Rosa<i></i></b><q>Discus. The king of fish. My husband always wanted them, so now I will have them.</q></li><li class="cust"><span class="face" style="background-position:85.714% 100.000%"></span><b>Grandmaster Wei<i></i></b><q>Fancy goldfish, chosen with care. Orandas, ranchu. Each one a living jewel.</q></li><li class="cust"><span class="face" style="background-position:42.857% 100.000%"></span><b>Professor Okoye<i></i></b><q>For my research: thirty fish, with one great shoal of tetras among dense planting.</q></li></ul><ul aria-hidden="true"><li class="cust"><span class="face" style="background-position:0.000% 0.000%"></span><b>Mrs Okafor<i></i></b><q>A tank for my grandson. Nothing fancy: a few plants and some bright little fish.</q></li><li class="cust"><span class="face" style="background-position:28.571% 0.000%"></span><b>Jess<i></i></b><q>A betta for my desk. Just the one, with some plants to hide in.</q></li><li class="cust"><span class="face" style="background-position:14.286% 0.000%"></span><b>Dev from the café<i></i></b><q>Something calm for the counter. Lots of green, a few peaceful fish.</q></li><li class="cust"><span class="face" style="background-position:85.714% 50.000%"></span><b>Gus<i></i></b><q>A betta, but with some friends who won't pick on him. Is that a thing?</q></li><li class="cust"><span class="face" style="background-position:57.143% 0.000%"></span><b>Priya<i></i></b><q>A shoal. One kind of fish, lots of them, all moving together.</q></li><li class="cust"><span class="face" style="background-position:14.286% 100.000%"></span><b>Aunty June<i></i></b><q>Livebearers, dear. Platies, mollies, that sort. I like a busy, cheerful tank.</q></li><li class="cust"><span class="face" style="background-position:100.000% 50.000%"></span><b>Wendy at the library<i></i></b><q>Something quiet for the reading corner. Rasboras, a gentle shoal, and plenty of plants.</q></li><li class="cust salt"><span class="face" style="background-position:42.857% 75.000%"></span><b>Zane<i></i></b><q>Blue fish. The brightest blue ones you've got, zipping about a reef.</q></li><li class="cust"><span class="face" style="background-position:100.000% 25.000%"></span><b>Nurse Abby<i></i></b><q>The night shift needs something soothing. Little tetras, a big glowing shoal of them.</q></li><li class="cust"><span class="face" style="background-position:0.000% 50.000%"></span><b>Coach Dan<i></i></b><q>Tough fish for the club rooms. Tiger barbs: fast, stripy, always in formation.</q></li><li class="cust"><span class="face" style="background-position:85.714% 75.000%"></span><b>Mr Petrov<i></i></b><q>I work nights. I want fish that come out when I get home: loaches, and something with them.</q></li><li class="cust"><span class="face" style="background-position:0.000% 25.000%"></span><b>Dr Chen<i></i></b><q>A planted jungle. Thick with greenery and not too many fish.</q></li><li class="cust salt"><span class="face" style="background-position:57.143% 50.000%"></span><b>Bruno the baker<i></i></b><q>A reef for the shop window. People should stop for the fish and stay for the bread.</q></li><li class="cust"><span class="face" style="background-position:28.571% 25.000%"></span><b>Bayside Primary<i></i></b><q>A community tank the kids can learn from. Four kinds of fish living together.</q></li><li class="cust"><span class="face" style="background-position:42.857% 50.000%"></span><b>Leila<i></i></b><q>Angelfish, gliding through tall plants. I saw it in a magazine and can't stop thinking about it.</q></li><li class="cust salt"><span class="face" style="background-position:0.000% 100.000%"></span><b>Chef Marco<i></i></b><q>A reef beside the pass. Ten fish, four kinds, all in good health. I notice everything.</q></li><li class="cust salt"><span class="face" style="background-position:0.000% 75.000%"></span><b>Skipper Mack<i></i></b><q>A yellow tang. Bright as a channel marker, with a proper bit of reef to cruise.</q></li><li class="cust"><span class="face" style="background-position:28.571% 75.000%"></span><b>Nonna Rosa<i></i></b><q>Discus. The king of fish. My husband always wanted them, so now I will have them.</q></li><li class="cust"><span class="face" style="background-position:85.714% 100.000%"></span><b>Grandmaster Wei<i></i></b><q>Fancy goldfish, chosen with care. Orandas, ranchu. Each one a living jewel.</q></li><li class="cust"><span class="face" style="background-position:42.857% 100.000%"></span><b>Professor Okoye<i></i></b><q>For my research: thirty fish, with one great shoal of tetras among dense planting.</q></li></ul></div>
+      <div class="belt back"><ul><li class="cust"><span class="face" style="background-position:57.143% 25.000%"></span><b>Tilly<i></i></b><q>Guppies! The ones with the big fancy tails. I've saved my pocket money.</q></li><li class="cust"><span class="face" style="background-position:85.714% 25.000%"></span><b>Sofia<i></i></b><q>Shrimp. A little jungle of plants with shrimp picking through it.</q></li><li class="cust"><span class="face" style="background-position:57.143% 100.000%"></span><b>Ruby and Finn<i></i></b><q>We want three different kinds of fish. Finn picks one, I pick one, and Mum picks one.</q></li><li class="cust"><span class="face" style="background-position:42.857% 0.000%"></span><b>Mr Lim<i></i></b><q>Goldfish, like I had as a boy. A big tank, mind. They grow.</q></li><li class="cust"><span class="face" style="background-position:71.429% 25.000%"></span><b>Old Tom<i></i></b><q>Catfish. I like a fish that minds its own business down the bottom.</q></li><li class="cust salt"><span class="face" style="background-position:71.429% 0.000%"></span><b>Captain Rowe<i></i></b><q>Clownfish. A pair, with a coral or two for them to call home.</q></li><li class="cust salt"><span class="face" style="background-position:14.286% 50.000%"></span><b>Yuki<i></i></b><q>A tiny reef for my studio. A goby keeping watch over a few corals.</q></li><li class="cust"><span class="face" style="background-position:85.714% 0.000%"></span><b>Dr Patel's surgery<i></i></b><q>Something for the waiting room. Big, bright and easy on the eye.</q></li><li class="cust salt"><span class="face" style="background-position:71.429% 75.000%"></span><b>Imogen<i></i></b><q>Reef shrimp are the coolest things alive. Shrimp and loads of coral, please.</q></li><li class="cust salt"><span class="face" style="background-position:100.000% 0.000%"></span><b>Mina<i></i></b><q>Corals. As many colours as you can fit, and a few fish to swim through them.</q></li><li class="cust"><span class="face" style="background-position:71.429% 50.000%"></span><b>Ms Tran<i></i></b><q>A river bank for my science class. Fish that like fast water over stones.</q></li><li class="cust"><span class="face" style="background-position:14.286% 75.000%"></span><b>Dr Amara<i></i></b><q>I'm a vet, so I'll notice. Healthy fish, good water, room to swim.</q></li><li class="cust"><span class="face" style="background-position:28.571% 50.000%"></span><b>Farmer Jo<i></i></b><q>Goldfish. Proper big ones, and plenty of them, like the dam back home.</q></li><li class="cust salt"><span class="face" style="background-position:14.286% 25.000%"></span><b>The Seaview Hotel<i></i></b><q>A big reef for the lobby. Tangs, the yellow or blue ones, and plenty of coral.</q></li><li class="cust"><span class="face" style="background-position:100.000% 75.000%"></span><b>Bayside Kindy<i></i></b><q>Rainbowfish! The children voted and it was unanimous. Well, nearly: one vote for a shark.</q></li><li class="cust salt"><span class="face" style="background-position:71.429% 100.000%"></span><b>Radio Bayside<i></i></b><q>We want a reef in the studio window. Coral, and lots of it: a dozen at least.</q></li><li class="cust salt"><span class="face" style="background-position:42.857% 25.000%"></span><b>Mayor Bell<i></i></b><q>A showpiece for the town hall. The best reef you can build.</q></li><li class="cust"><span class="face" style="background-position:57.143% 75.000%"></span><b>The Lighthouse Inn<i></i></b><q>Cichlids from the African lakes. Yellow and blue, bold as anything, behind the bar.</q></li><li class="cust salt"><span class="face" style="background-position:28.571% 100.000%"></span><b>The Marina Yacht Club<i></i></b><q>A grand reef for the members' lounge, with a dwarf angelfish as the star.</q></li><li class="cust"><span class="face" style="background-position:100.000% 100.000%"></span><b>The Aquarium Society<i></i></b><q>Our members would like to see what you can really do. The biggest tank, five kinds of fish, a forest of plants.</q></li></ul><ul aria-hidden="true"><li class="cust"><span class="face" style="background-position:57.143% 25.000%"></span><b>Tilly<i></i></b><q>Guppies! The ones with the big fancy tails. I've saved my pocket money.</q></li><li class="cust"><span class="face" style="background-position:85.714% 25.000%"></span><b>Sofia<i></i></b><q>Shrimp. A little jungle of plants with shrimp picking through it.</q></li><li class="cust"><span class="face" style="background-position:57.143% 100.000%"></span><b>Ruby and Finn<i></i></b><q>We want three different kinds of fish. Finn picks one, I pick one, and Mum picks one.</q></li><li class="cust"><span class="face" style="background-position:42.857% 0.000%"></span><b>Mr Lim<i></i></b><q>Goldfish, like I had as a boy. A big tank, mind. They grow.</q></li><li class="cust"><span class="face" style="background-position:71.429% 25.000%"></span><b>Old Tom<i></i></b><q>Catfish. I like a fish that minds its own business down the bottom.</q></li><li class="cust salt"><span class="face" style="background-position:71.429% 0.000%"></span><b>Captain Rowe<i></i></b><q>Clownfish. A pair, with a coral or two for them to call home.</q></li><li class="cust salt"><span class="face" style="background-position:14.286% 50.000%"></span><b>Yuki<i></i></b><q>A tiny reef for my studio. A goby keeping watch over a few corals.</q></li><li class="cust"><span class="face" style="background-position:85.714% 0.000%"></span><b>Dr Patel's surgery<i></i></b><q>Something for the waiting room. Big, bright and easy on the eye.</q></li><li class="cust salt"><span class="face" style="background-position:71.429% 75.000%"></span><b>Imogen<i></i></b><q>Reef shrimp are the coolest things alive. Shrimp and loads of coral, please.</q></li><li class="cust salt"><span class="face" style="background-position:100.000% 0.000%"></span><b>Mina<i></i></b><q>Corals. As many colours as you can fit, and a few fish to swim through them.</q></li><li class="cust"><span class="face" style="background-position:71.429% 50.000%"></span><b>Ms Tran<i></i></b><q>A river bank for my science class. Fish that like fast water over stones.</q></li><li class="cust"><span class="face" style="background-position:14.286% 75.000%"></span><b>Dr Amara<i></i></b><q>I'm a vet, so I'll notice. Healthy fish, good water, room to swim.</q></li><li class="cust"><span class="face" style="background-position:28.571% 50.000%"></span><b>Farmer Jo<i></i></b><q>Goldfish. Proper big ones, and plenty of them, like the dam back home.</q></li><li class="cust salt"><span class="face" style="background-position:14.286% 25.000%"></span><b>The Seaview Hotel<i></i></b><q>A big reef for the lobby. Tangs, the yellow or blue ones, and plenty of coral.</q></li><li class="cust"><span class="face" style="background-position:100.000% 75.000%"></span><b>Bayside Kindy<i></i></b><q>Rainbowfish! The children voted and it was unanimous. Well, nearly: one vote for a shark.</q></li><li class="cust salt"><span class="face" style="background-position:71.429% 100.000%"></span><b>Radio Bayside<i></i></b><q>We want a reef in the studio window. Coral, and lots of it: a dozen at least.</q></li><li class="cust salt"><span class="face" style="background-position:42.857% 25.000%"></span><b>Mayor Bell<i></i></b><q>A showpiece for the town hall. The best reef you can build.</q></li><li class="cust"><span class="face" style="background-position:57.143% 75.000%"></span><b>The Lighthouse Inn<i></i></b><q>Cichlids from the African lakes. Yellow and blue, bold as anything, behind the bar.</q></li><li class="cust salt"><span class="face" style="background-position:28.571% 100.000%"></span><b>The Marina Yacht Club<i></i></b><q>A grand reef for the members' lounge, with a dwarf angelfish as the star.</q></li><li class="cust"><span class="face" style="background-position:100.000% 100.000%"></span><b>The Aquarium Society<i></i></b><q>Our members would like to see what you can really do. The biggest tank, five kinds of fish, a forest of plants.</q></li></ul></div>
+    </div>
+    <div class="wrap"><p class="reg-key"><span><i></i>Wants a freshwater tank</span><span><i></i>Wants a reef tank</span></p></div>
+  </section>
+
+  <section class="bigblue live" id="the-big-blue" aria-labelledby="bb-title">
+    <div class="scene" aria-hidden="true">
+      <div class="keyart"><picture><source media="(max-aspect-ratio: 3/5)" srcset="img/keyart-blue-m.webp"><img src="img/keyart-blue.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async"></picture></div>
+      <div class="shafts">
+        <i style="--x:8%;--w:9%;--r:14deg;--a:.14;--d:12s;--dl:-5s"></i>
+        <i style="--x:26%;--w:5%;--r:8deg;--a:.2;--d:8s;--dl:-2s"></i>
+        <i style="--x:44%;--w:11%;--r:2deg;--a:.12;--d:14s;--dl:-9s"></i>
+        <i style="--x:62%;--w:6%;--r:-4deg;--a:.18;--d:9s;--dl:-3s"></i>
+        <i style="--x:80%;--w:9%;--r:-11deg;--a:.13;--d:13s;--dl:-7s"></i>
+      </div>
+      <div class="floor caustics"><i></i><i></i></div>
+    </div>
+    <div class="wrap">
+      <div class="bb-head">
+        <p class="bb-when"><b>Level 20</b> The fourth and biggest place.</p>
+        <h2 class="display bb-title" id="bb-title">The Big Blue</h2>
+        <div class="shark sil" aria-hidden="true">
+          <svg viewBox="0 0 1000 300" focusable="false">
+            <defs>
+              <linearGradient id="g-shark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s1"/><stop offset="1" class="s2"/></linearGradient>
+              <pattern id="p-spots" width="34" height="28" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="3.4"/><circle cx="25" cy="21" r="2.8"/></pattern>
+            </defs>
+            <g fill="url(#g-shark)">
+              <path id="shark-body" d="M20 156C18 136 36 118 90 110C210 94 350 86 470 90C484 72 494 50 508 34C524 56 544 80 576 96C650 106 720 116 762 122C768 112 774 104 782 100C786 110 792 118 802 126C832 132 862 138 892 142L892 170C848 174 800 180 752 186C746 194 738 204 728 210C722 200 714 194 702 190C620 198 540 204 470 208C446 226 412 252 370 280C366 256 352 230 326 210C230 204 130 194 74 184C40 178 22 168 20 156Z"/>
+              <path class="tail" d="M876 140C910 108 950 58 992 14C978 64 958 116 936 154C954 172 970 196 980 222C950 206 914 184 876 172Z"/>
+            </g>
+            <use href="#shark-body" fill="url(#p-spots)" opacity=".22"/>
+          </svg>
+        </div>
+      </div>
+      <div class="bb-body">
+        <div class="bb-copy">
+          <p class="bb-lead rise">A public aquarium of your own, and visitors pay to come in.</p>
+          <div class="exhibits rise">
+            <div>
+              <h3>The animals</h3>
+              <ul>
+                <li>Humpback whale</li>
+                <li>Whale shark</li>
+                <li>Sharks</li>
+                <li>Manta rays</li>
+                <li>Dolphins</li>
+              </ul>
+            </div>
+            <div>
+              <h3>The attractions</h3>
+              <ul>
+                <li>Feeding shows with a diver</li>
+                <li>Walk-through tunnel</li>
+                <li>Touch pool</li>
+                <li>Jellyfish gallery</li>
+                <li>Kelp forest</li>
+              </ul>
+            </div>
+          </div>
+          <p class="bb-floor rise">And the sea floor is yours to scape.</p>
+        </div>
+        <figure class="bb-phone">
+          <div class="phone"><img src="img/shot-blue.webp" srcset="img/shot-blue-600.webp 600w, img/shot-blue.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The Big Blue: a humpback whale diving past a manta ray and a school of red snapper, over a shipwreck and a treasure chest, with visitors at the glass" width="900" height="1950" fetchpriority="low" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRsIAAABXRUJQVlA4ILYAAADQBACdASoMABoAPt1cpkyopSOiMAgBEBuJaACdMoR4GdC42n0//jF4YoG74OQbgAD9lpZJIThkmudJORoXCDZt83FbnhvRDDsc2u3nZLGM35rht5RlOu3K1Z+a0aZl9xbe8OuLkmH780dcvLDydTwoYzS+Pa0nbXDhkgWdpgc4Pa5cybPJhoUiidIchTdipZ8Q6Lk62Iyu+I5GHsSVHcOstLyPUpV36iRR4vkxF2Xwg1tmdo5AAA==) center/cover"></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="journey" id="journey" aria-labelledby="journey-title">
+    <div class="wrap journey-grid">
+      <header class="journey-head rise">
+        <h2 class="display" id="journey-title">Every level opens something new.</h2>
+        <p>Tank sizes are length × width × height, the way a fish shop lists them.</p>
+      </header>
+      <ol class="levels">
+        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>1</b></span><p><strong>30, 45 and 60&nbsp;cm tanks</strong> and your first fish room</p></li>
+        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>2</b></span><p><strong>75 × 40 × 45&nbsp;cm tank</strong></p></li>
+        <li class="lv big reef rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>3</b></span><p><strong>The Reef Room</strong> and a 90 × 45 × 45&nbsp;cm tank <span class="tag">New place</span></p></li>
+        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>4</b></span><p><strong>120&nbsp;cm tank</strong></p></li>
+        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>5</b></span><p><strong>The Giant 300</strong>, the tank for exotics</p></li>
+        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>6</b></span><p><strong>150 × 50 × 55&nbsp;cm tank</strong></p></li>
+        <li class="lv big shop rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>7</b></span><p><strong>The Fish Shop</strong>. It opens small, and display tanks, tank walls and exotics tanks open up as you trade <span class="tag">New place</span></p></li>
+        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>8</b></span><p><strong>180&nbsp;cm tank</strong> and a bigger shop</p></li>
+        <li class="lv finale rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>20</b></span><p><strong>The Big Blue</strong> <span class="tag">Last new place</span></p></li>
+        <li class="lv beyond rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>21+</b></span><p><strong>And it keeps going.</strong> A new keeper rank every 10 levels, a reward chest every 5, and every level adds 1% to all your income.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="maker" id="maker" aria-labelledby="maker-title">
+    <div class="wrap maker-grid">
+      <h2 class="display rise" id="maker-title">Made in Perth by a fishkeeper.</h2>
+      <div class="maker-copy rise">
+        <p>Tankscaper is made in Perth, Western Australia.</p>
+        <p>The water rules come from real fishkeeping: cycle the tank, match fish to the temperature, don't overstock, and keep up with water changes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="final live" id="get" aria-labelledby="get-title">
+    <div class="scene" aria-hidden="true">
+      <div class="ceiling caustics"><i></i><i></i></div>
+      <div class="shafts">
+        <i style="--x:18%;--w:8%;--r:12deg;--a:.16;--d:10s;--dl:-4s"></i>
+        <i style="--x:38%;--w:5%;--r:5deg;--a:.22;--d:8s;--dl:-1s"></i>
+        <i style="--x:55%;--w:10%;--r:-2deg;--a:.14;--d:13s;--dl:-6s"></i>
+        <i style="--x:74%;--w:5%;--r:-9deg;--a:.2;--d:9s;--dl:-3s"></i>
+      </div>
+    </div>
+    <div class="wrap final-inner">
+      <div class="final-logo"><img src="img/logo.webp" alt="" width="640" height="263" loading="lazy" decoding="async"></div>
+      <h2 class="display" id="get-title">Your first tank is waiting.</h2>
+      <p class="kind">Coming soon to iPhone and Android.</p>
+      <ul class="stores">
+        <li class="store"><svg aria-hidden="true"><use href="#ic-phone"/></svg><span><small>Coming soon to the</small><b>App Store</b></span></li>
+        <li class="store"><svg aria-hidden="true"><use href="#ic-phone"/></svg><span><small>Coming soon on</small><b>Google Play</b></span></li>
+      </ul>
+      <p class="free"><b>Free to play.</b></p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <p>© 2026 Tankscaper. Made in Perth, Western Australia.</p>
+    <p class="contact">Contact <span class="mail" id="mail">support@tankscapergame.com</span> <button class="copy" type="button" id="copy-mail">Copy</button> <span class="copied" id="copy-note" role="status" aria-live="polite"></span></p>
+    <nav aria-label="Site"><a href="support.html">Support</a><a href="privacy.html">Privacy policy</a><a href="#top">Back to top</a></nav>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const motionQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  const stillMode = () => !!(motionQuery && motionQuery.matches);
+
+  /* Caustic light: one tileable texture, drawn once, then drifted by CSS.
+     (After the classic "tileable water caustic" pattern.) */
+  function causticTexture(n) {
+    const cv = document.createElement('canvas');
+    cv.width = cv.height = n;
+    const ctx = cv.getContext('2d');
+    if (!ctx) return '';
+    const img = ctx.createImageData(n, n);
+    const d = img.data;
+    const TAU = Math.PI * 2, inten = 0.005, t = 23.7;
+    for (let y = 0; y < n; y++) {
+      for (let x = 0; x < n; x++) {
+        const px = (x / n) * TAU - 250, py = (y / n) * TAU - 250;
+        let ix = px, iy = py, c = 1;
+        for (let k = 0; k < 5; k++) {
+          const tt = t * (1 - 3.5 / (k + 1));
+          const nx = px + Math.cos(tt - ix) + Math.sin(tt + iy);
+          const ny = py + Math.sin(tt - iy) + Math.cos(tt + ix);
+          ix = nx; iy = ny;
+          c += 1 / Math.hypot(px / (Math.sin(ix + tt) / inten), py / (Math.cos(iy + tt) / inten));
+        }
+        c = 1.17 - Math.pow(c / 5, 1.4);
+        const v = Math.min(1, Math.pow(Math.abs(c), 8));
+        const o = (y * n + x) * 4;
+        d[o] = 225; d[o + 1] = 247; d[o + 2] = 255; d[o + 3] = Math.round(v * 255);
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    return cv.toDataURL('image/png');
+  }
+  const paintCaustics = () => {
+    try {
+      const url = causticTexture(256);
+      if (!url) return;
+      root.style.setProperty('--caustic', 'url("' + url + '")');
+      document.querySelectorAll('.caustics').forEach((el) => el.classList.add('on'));
+    } catch (e) { /* the scene still works without caustics */ }
+  };
+  if ('requestIdleCallback' in window) window.requestIdleCallback(paintCaustics, { timeout: 900 });
+  else setTimeout(paintCaustics, 150);
+
+  /* Drifting motes in the hero. */
+  const hero = document.querySelector('.hero');
+  const canvas = hero && hero.querySelector('.motes');
+  let motes = null;
+  if (canvas && canvas.getContext) {
+    const ctx = canvas.getContext('2d');
+    const dot = document.createElement('canvas');
+    dot.width = dot.height = 64;
+    const g = dot.getContext('2d');
+    const rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    rg.addColorStop(0, 'rgba(232,250,255,1)');
+    rg.addColorStop(0.3, 'rgba(206,240,255,.55)');
+    rg.addColorStop(1, 'rgba(206,240,255,0)');
+    g.fillStyle = rg;
+    g.fillRect(0, 0, 64, 64);
+
+    let W = 0, H = 0, parts = [], raf = 0, last = 0, running = false;
+    const spawn = (anywhere) => {
+      const z = Math.random();
+      return { x: Math.random() * W, y: anywhere ? Math.random() * H : H + 30, s: 3 + z * z * 22, a: 0.1 + z * 0.5,
+               vy: -(5 + z * 20), sway: 4 + z * 14, ph: Math.random() * 6.283 };
+    };
+    const fit = () => {
+      const r = canvas.getBoundingClientRect();
+      if (Math.abs(r.width - W) < 1 && Math.abs(r.height - H) < 1) return false;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = r.width; H = r.height;
+      canvas.width = Math.max(1, Math.round(W * dpr));
+      canvas.height = Math.max(1, Math.round(H * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = Math.round(Math.min(130, Math.max(45, (W * H) / 9000)));
+      parts = Array.from({ length: n }, () => spawn(true));
+      return true;
+    };
+    const draw = (dt) => {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of parts) {
+        p.ph += dt * 0.5;
+        p.y += p.vy * dt;
+        p.x += Math.sin(p.ph) * p.sway * dt;
+        if (p.y < -30) Object.assign(p, spawn(false));
+        ctx.globalAlpha = p.a;
+        ctx.drawImage(dot, p.x - p.s / 2, p.y - p.s / 2, p.s, p.s);
+      }
+      ctx.globalAlpha = 1;
+    };
+    const tick = (t) => {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
+      last = t;
+      draw(dt);
+      if (running) raf = requestAnimationFrame(tick);
+    };
+    motes = {
+      start() { if (running || stillMode() || document.hidden) return; running = true; last = 0; raf = requestAnimationFrame(tick); },
+      stop() { running = false; cancelAnimationFrame(raf); }
+    };
+    fit();
+    draw(0);
+    let resizeTimer = 0;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { if (fit()) draw(0); }, 150);
+    });
+  }
+
+  /* Clips recorded in the game. Each loads only when its section is on screen, and never for reduced motion or data saver.
+     If a clip can't play, the picture under it is swapped for a moving picture where there is one, or simply stays. */
+  const saver = () => !!(navigator.connection && navigator.connection.saveData);
+  const moving = (v) => {
+    const img = v.parentNode.querySelector('img');
+    if (!v.dataset.anim || !img || v.dataset.fell) return;
+    v.dataset.fell = '1';
+    img.removeAttribute('srcset');
+    img.src = v.dataset.anim;
+  };
+  const tryPlay = (v) => {
+    try {
+      const pr = v.play();
+      if (pr && pr.catch) pr.catch((e) => { if (e && e.name === 'NotAllowedError') moving(v); });
+    } catch (e) { /* the still stays */ }
+  };
+  const startFilm = (v) => {
+    if (stillMode() || saver() || v.dataset.fell) return;
+    v.muted = true;
+    if (!v.dataset.armed) {
+      v.dataset.armed = '1';
+      v.addEventListener('playing', () => v.classList.add('on'));
+      v.addEventListener('error', () => {
+        if (v.dataset.blob) { moving(v); return; }
+        v.dataset.blob = '1';
+        fetch(v.dataset.src)
+          .then((r) => { if (!r.ok) throw new Error('clip'); return r.blob(); })
+          .then((b) => { v.src = URL.createObjectURL(b); tryPlay(v); })
+          .catch(() => moving(v));
+      });
+      v.src = v.dataset.src;
+    }
+    tryPlay(v);
+  };
+  const stopFilm = (v) => { try { v.pause(); } catch (e) { /* not started */ } };
+  let pageLoaded = document.readyState === 'complete';
+  const syncFilms = (section) => {
+    if (!section) return;
+    const on = pageLoaded && !section.classList.contains('is-off') && !document.hidden;
+    section.querySelectorAll('video.film').forEach((v) => {
+      const layer = v.closest('.layer');
+      if (on && (!layer || layer.classList.contains('show'))) startFilm(v); else stopFilm(v);
+    });
+  };
+  const syncAllFilms = () => document.querySelectorAll('.live').forEach(syncFilms);
+  if (!pageLoaded) window.addEventListener('load', () => { pageLoaded = true; setTimeout(syncAllFilms, 400); });
+
+  /* The living tank: planted or reef. */
+  const aliveSection = document.getElementById('alive');
+  const tankWindow = aliveSection && aliveSection.querySelector('.window');
+  const watchCap = document.getElementById('watch-cap');
+  if (tankWindow) {
+    const buttons = Array.from(aliveSection.querySelectorAll('.seg button'));
+    buttons.forEach((btn) => btn.addEventListener('click', () => {
+      const kind = btn.dataset.tank;
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === btn)));
+      tankWindow.querySelectorAll('.layer').forEach((layer) => {
+        const show = layer.dataset.tank === kind;
+        layer.classList.toggle('show', show);
+        if (show && watchCap) watchCap.textContent = layer.dataset.cap;
+        if (show) { const img = layer.querySelector('img'); if (img) img.loading = 'eager'; }
+      });
+      tankWindow.classList.toggle('reef-on', kind === 'reef');
+      syncFilms(aliveSection);
+    }));
+  }
+
+  /* The phone beside the three beats: one screen per beat on a wide page, a slow turn through them on a phone. */
+  const screens = Array.from(document.querySelectorAll('.screens img'));
+  const screenName = document.getElementById('screen-name');
+  let screenNow = 0, phoneSeen = false;
+  const showScreen = (i) => {
+    if (i === screenNow || !screens[i]) return;
+    screenNow = i;
+    screens.forEach((im, k) => im.classList.toggle('show', k === i));
+    if (screenName) screenName.textContent = screens[i].dataset.name;
+  };
+  if (screens.length > 1 && 'IntersectionObserver' in window) {
+    const wide = window.matchMedia('(min-width:1000px)');
+    const beats = Array.from(document.querySelectorAll('.beat'));
+    const beatIo = new IntersectionObserver((entries) => {
+      if (!wide.matches) return;
+      for (const e of entries) if (e.isIntersecting) showScreen(beats.indexOf(e.target));
+    }, { rootMargin: '-48% 0px -48% 0px' });
+    beats.forEach((b) => beatIo.observe(b));
+    const phoneIo = new IntersectionObserver((entries) => { phoneSeen = entries[0].isIntersecting; }, { threshold: 0.35 });
+    phoneIo.observe(screens[0].closest('.phone'));
+    setInterval(() => {
+      if (wide.matches || !phoneSeen || stillMode() || document.hidden) return;
+      showScreen((screenNow + 1) % screens.length);
+    }, 3400);
+  }
+
+  /* Pause the living scenes while they are off screen. */
+  const heroOn = () => hero && !hero.classList.contains('is-off');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        e.target.classList.toggle('is-off', !e.isIntersecting);
+        if (e.target === hero && motes) { if (e.isIntersecting) motes.start(); else motes.stop(); }
+        syncFilms(e.target);
+      }
+    }, { rootMargin: '80px 0px' });
+    document.querySelectorAll('.live').forEach((el) => io.observe(el));
+  } else {
+    if (motes) motes.start();
+    syncAllFilms();
+  }
+  document.addEventListener('visibilitychange', () => {
+    syncAllFilms();
+    if (!motes) return;
+    if (document.hidden) motes.stop(); else if (heroOn()) motes.start();
+  });
+  if (motionQuery && motionQuery.addEventListener) {
+    motionQuery.addEventListener('change', () => {
+      if (stillMode()) document.querySelectorAll('video.film').forEach((v) => { stopFilm(v); v.classList.remove('on'); }); else syncAllFilms();
+      if (!motes) return;
+      if (stillMode()) motes.stop(); else if (heroOn()) motes.start();
+    });
+  }
+
+  /* Copy the contact address. */
+  const copyBtn = document.getElementById('copy-mail');
+  const mail = document.getElementById('mail');
+  const note = document.getElementById('copy-note');
+  if (copyBtn && mail && note) {
+    let noteTimer = 0;
+    const say = (msg) => {
+      note.textContent = msg;
+      clearTimeout(noteTimer);
+      noteTimer = setTimeout(() => { note.textContent = ''; }, 3000);
+    };
+    const selectAddress = () => {
+      const range = document.createRange();
+      range.selectNodeContents(mail);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      say('Address selected, ready to copy');
+    };
+    copyBtn.addEventListener('click', () => {
+      const text = mail.textContent.trim();
+      try {
+        const done = navigator.clipboard && navigator.clipboard.writeText(text);
+        if (done && done.then) done.then(() => say('Copied'), selectAddress);
+        else selectAddress();
+      } catch (e) {
+        selectAddress();
+      }
+    });
+  }
+})();
+</script>
+
+</body></html>
