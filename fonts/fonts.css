@@ -1,0 +1,6 @@
+/* The site's fonts, served from this site (Latin subsets). All are under the SIL Open Font License: see the OFL files here. */
+@font-face{font-family:"Bricolage Grotesque";src:url(bricolage-grotesque.woff2) format("woff2");font-weight:400 800;font-stretch:75% 100%;font-style:normal;font-display:swap}
+@font-face{font-family:"Fredoka";src:url(fredoka.woff2) format("woff2");font-weight:500 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Baloo 2";src:url(baloo2-800.woff2) format("woff2");font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Atkinson Hyperlegible";src:url(atkinson-hyperlegible-400.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Atkinson Hyperlegible";src:url(atkinson-hyperlegible-700.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
