@@ -29,10 +29,14 @@ ul,ol{padding-left:1.2em}
 li+li{margin-top:6px}
 .lead{color:var(--ink-soft);margin-bottom:24px}
 .top{display:flex;gap:20px;flex-wrap:wrap}
+.top a{display:inline-block;padding-block:10px;margin-block:-10px}
+p,li{text-wrap:pretty}
 .contact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
 .contact p:last-child{margin:0}
 .mail{user-select:all;font-weight:700;font-size:1.15rem;overflow-wrap:anywhere}
-.copy{font:700 .9rem var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;margin-left:6px;cursor:pointer;vertical-align:2px}
+.copy{position:relative;font:700 .9rem var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;margin-left:6px;cursor:pointer;vertical-align:2px;transition:transform .16s cubic-bezier(.23,1,.32,1)}
+.copy::before{content:"";position:absolute;inset:-9px -4px}
+.copy:active{transform:scale(.97)}
 .copied{color:var(--leaf);font-weight:700;margin-left:6px}
 details{border-bottom:1px solid var(--line)}
 details:first-of-type{border-top:1px solid var(--line)}

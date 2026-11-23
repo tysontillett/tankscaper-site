@@ -30,6 +30,7 @@
    call rises back toward the light. Type is left-aligned and oversized; the game's own gradient and gold lead.
    One deliberate look: this page is always dark, whatever the viewer's theme. */
 :root{
+  --ease-out:cubic-bezier(.23,1,.32,1);
   color-scheme:dark;
   /* the game's loading-screen gradient, surface to deep */
   --surface:#34c2ee;
@@ -68,9 +69,9 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{background:var(--abyss);color:var(--foam);font:400 1.0625rem/1.6 var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
 h1,h2,h3,p,ul,ol,figure{margin:0}
+p{text-wrap:pretty}
 ul,ol{padding:0;list-style:none}
 img{display:block;max-width:100%}
 a{color:inherit}
@@ -365,12 +366,14 @@ a{color:inherit}
 .foot-inner{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;align-items:center;font:500 .95rem/1.5 var(--ui);color:var(--mist)}
 .contact{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 .mail{user-select:all;-webkit-user-select:all;color:var(--foam)}
-.copy{font:600 .85rem/1 var(--ui);color:var(--abyss);background:var(--foam);border:0;border-radius:999px;padding:8px 14px;cursor:pointer}
-.copy:hover{background:var(--gold)}
+.copy{position:relative;font:600 .85rem/1 var(--ui);color:var(--abyss);background:var(--foam);border:0;border-radius:999px;padding:8px 14px;cursor:pointer;transition:background .2s ease,transform .16s var(--ease-out)}
+.copy::before{content:"";position:absolute;inset:-7px -4px}
+.copy:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.copy:hover{background:var(--gold)}}
 .copied{color:var(--gold)}
 .foot nav{display:flex;flex-wrap:wrap;gap:24px}
-.foot a{color:var(--foam);text-decoration-color:rgba(238,249,255,.35);text-underline-offset:4px}
-.foot a:hover{text-decoration-color:var(--gold)}
+.foot a{display:inline-block;padding-block:11px;margin-block:-11px;color:var(--foam);text-decoration-color:rgba(238,249,255,.35);text-underline-offset:4px;transition:text-decoration-color .2s ease}
+@media (hover:hover) and (pointer:fine){.foot a:hover{text-decoration-color:var(--gold)}}
 
 /* ---------- clips recorded in the game: fade in over their still once they are playing ---------- */
 .film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
@@ -389,14 +392,15 @@ a{color:inherit}
 @keyframes sheen{0%,74%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
 
 /* ---------- 2b. the living tank ---------- */
-.alive{position:relative;padding-block:clamp(24px,4vw,64px) clamp(80px,10vw,150px)}
+.alive{position:relative;overflow-x:clip;padding-block:clamp(24px,4vw,64px) clamp(80px,10vw,150px)}
 .alive-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(30px,4vw,60px);align-items:center}
 .alive-copy{display:flex;flex-direction:column;align-items:flex-start;gap:20px;min-width:0}
 .alive h2{font-size:clamp(3rem,11vw,7rem)}
 .alive-copy p{max-width:40ch;color:var(--mist);font-size:clamp(1.0625rem,1.4vw,1.2rem)}
 .seg{display:inline-flex;gap:4px;padding:4px;margin-top:6px;border-radius:999px;background:var(--glass);border:1px solid var(--line)}
-.seg button{font:600 1rem/1 var(--ui);color:var(--mist);background:none;border:0;border-radius:999px;padding:12px 18px 13px;cursor:pointer;transition:background .25s ease,color .25s ease}
-.seg button:hover{color:var(--foam)}
+.seg button{min-height:44px;font:600 1rem/1 var(--ui);color:var(--mist);background:none;border:0;border-radius:999px;padding:12px 18px 13px;cursor:pointer;transition:background .2s ease,color .2s ease,transform .16s var(--ease-out)}
+.seg button:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.seg button:hover{color:var(--foam)}}
 .seg button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink)}
 .window{position:relative;isolation:isolate;min-width:0;--spill:rgba(52,194,238,.34)}
 .window.reef-on{--spill:rgba(191,147,255,.36)}
@@ -1026,6 +1030,17 @@ a{color:inherit}
       if (stillMode()) motes.stop(); else if (heroOn()) motes.start();
     });
   }
+
+  /* The two jump links glide to their section (keyboard focus moves never animate). */
+  document.querySelectorAll('a[href="#reveal"], a[href="#top"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (!t || (motionQuery && motionQuery.matches)) return;
+      e.preventDefault();
+      t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (history.replaceState) history.replaceState(null, '', a.getAttribute('href'));
+    });
+  });
 
   /* Copy the contact address. */
   const copyBtn = document.getElementById('copy-mail');
