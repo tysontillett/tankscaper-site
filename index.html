@@ -71,7 +71,7 @@
 *,*::before,*::after{box-sizing:border-box}
 body{background:var(--abyss);color:var(--foam);font:400 1.0625rem/1.6 var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
 a,button,summary{touch-action:manipulation}
-.seg button,.copy,.belt-toggle{-webkit-tap-highlight-color:transparent}
+.seg button,.copy,.belt-toggle,.verbs button,.fan-card,.feed{-webkit-tap-highlight-color:transparent}
 h1,h2,h3,p,ul,ol,figure{margin:0}
 p{text-wrap:pretty}
 ul,ol{padding:0;list-style:none}
@@ -88,22 +88,7 @@ a{color:inherit}
 
 .display{font-family:var(--display);font-weight:800;font-stretch:75%;line-height:.9;letter-spacing:-.018em;text-wrap:balance}
 
-/* ---------- shared: store buttons, free-to-play line, phones ---------- */
-.stores{display:flex;flex-wrap:wrap;gap:12px}
-.store{display:inline-flex;align-items:center;gap:12px;min-height:62px;padding:10px 22px 10px 16px;border-radius:18px;background:var(--glass);border:1px solid rgba(238,249,255,.24);box-shadow:inset 0 1px 0 rgba(238,249,255,.12),0 18px 40px -22px rgba(0,0,0,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.store svg{width:28px;height:28px;flex:none;fill:none;stroke:var(--foam);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.store span{display:flex;flex-direction:column;gap:1px;min-width:0}
-.store small{font:500 .78rem/1.15 var(--ui);color:var(--mist);letter-spacing:.01em}
-.store b{font:600 1.32rem/1.1 var(--ui);color:var(--foam);white-space:nowrap}
-@media (max-width:479px){
-  .stores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
-  .store{padding:10px 12px;gap:10px;min-height:58px}
-  .store svg{width:22px;height:22px}
-  .store small{font-size:.72rem}
-  .store b{font-size:1.1rem}
-}
-.free{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font:500 1rem/1.35 var(--ui);color:var(--mist)}
-.free b{font-weight:600;color:var(--gold-ink);background:var(--gold);border-radius:999px;padding:4px 12px 5px}
+/* ---------- shared: price tags, phones ---------- */
 .kind{font:500 clamp(1.05rem,1.8vw,1.3rem)/1.4 var(--ui);color:var(--mist)}
 
 .phone{--pw:min(300px,74vw);position:relative;width:var(--pw);max-width:100%;padding:calc(var(--pw) * .032);border-radius:calc(var(--pw) * .16);
@@ -189,7 +174,7 @@ a{color:inherit}
   mask-composite:intersect}
 .hook{font-size:clamp(2.3rem,9.4vw,4.6rem);max-width:100%}
 .hook span{display:block}
-.hero .stores{margin-top:6px}
+
 .dive{position:absolute;z-index:1;left:0;right:0;bottom:16px;width:max-content;margin-inline:auto;display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 14px;font:500 .875rem/1 var(--ui);letter-spacing:.06em;color:var(--mist);text-decoration:none}
 .dive i{display:block;width:2px;height:44px;border-radius:2px;background:linear-gradient(180deg,var(--gold),rgba(255,213,74,0));transform-origin:50% 0;animation:cue 2.8s ease-in-out -1.2s infinite}
 @keyframes cue{0%{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
@@ -198,64 +183,9 @@ a{color:inherit}
   .manta{top:9%}
 }
 
-/* ---------- 2. reveal ---------- */
-.reveal{position:relative;padding-block:clamp(88px,11vw,170px) clamp(72px,10vw,150px)}
-.reveal h2{font-size:clamp(3rem,10.6vw,9.5rem);line-height:.88}
-.reveal h2 span{display:block}
-.reveal-sub{margin-top:clamp(26px,3.4vw,46px);max-width:31ch;font:500 clamp(1.2rem,2.3vw,1.75rem)/1.35 var(--ui);color:var(--mist)}
+/* ---------- 2 to 4: see the v4 block at the end ---------- */
 
-/* ---------- 3. feature beats ---------- */
-.beats{position:relative;overflow-x:clip;padding-block:clamp(48px,7vw,110px) clamp(96px,12vw,180px);
-  background:radial-gradient(55% 38% at 22% 42%,rgba(17,128,184,.26),rgba(17,128,184,0) 72%)}
-.beats-grid{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"b1" "ph" "b2" "b3";gap:clamp(56px,9vw,104px)}
-.beat{display:flex;flex-direction:column;align-items:flex-start;gap:18px;min-width:0}
-.b1{grid-area:b1}.b2{grid-area:b2}.b3{grid-area:b3}
-.beat h3{font-size:clamp(3.4rem,15vw,8rem)}
-.beat p{max-width:44ch;color:var(--mist);font-size:clamp(1.0625rem,1.35vw,1.2rem)}
-.ticks{display:flex;flex-direction:column;gap:10px;margin-top:4px}
-.ticks li{display:flex;gap:12px;align-items:baseline;font:500 1.0625rem/1.4 var(--ui);color:var(--foam)}
-.ticks li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--gold);transform:translateY(-2px)}
-.beat-phone{grid-area:ph;position:relative;justify-self:center;isolation:isolate}
-.beat-phone::before{content:"";position:absolute;inset:-18% -14%;z-index:-1;background:radial-gradient(closest-side,rgba(52,194,238,.4),rgba(17,128,184,.16) 55%,rgba(17,128,184,0))}
-.beat-phone .phone{--pw:min(310px,76vw);transform:perspective(1600px) rotateY(-12deg) rotateX(4deg) rotate(2deg)}
-@media (min-width:1000px){
-  .beats-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);grid-template-areas:"ph b1" "ph b2" "ph b3";column-gap:clamp(64px,7vw,128px);row-gap:0}
-  .beat{min-height:min(72svh,660px);justify-content:center;padding-block:48px}
-  .beat-phone{position:sticky;top:max(24px,calc(50svh - 390px));align-self:start}
-  .beat-phone .phone{--pw:min(340px,26vw)}
-}
 
-/* ---------- 4. the places, stacking as you scroll ---------- */
-.places{position:relative;padding-block:clamp(56px,8vw,120px) clamp(48px,7vw,96px)}
-.places-head{display:flex;flex-direction:column;gap:18px;margin-bottom:clamp(36px,5vw,72px)}
-.places-head h2{font-size:clamp(3.1rem,12vw,8rem)}
-.places-head p{max-width:46ch;color:var(--mist);font-size:clamp(1.0625rem,1.5vw,1.25rem)}
-.deck{display:flex;flex-direction:column;gap:clamp(24px,4vw,40px)}
-.place{--i:0;position:sticky;top:calc(env(safe-area-inset-top, 0px) + 14px + var(--i) * 14px);height:min(720px,calc(100svh - 56px));
-  display:flex;flex-direction:column;overflow:hidden;border-radius:clamp(26px,3vw,40px);border:1px solid rgba(255,255,255,.07);
-  background:radial-gradient(90% 60% at 70% 100%,var(--glow),transparent 70%),linear-gradient(165deg,var(--ground) 0%,var(--ground-deep) 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 -24px 60px -28px rgba(0,0,0,.9)}
-.place.fresh{--accent:var(--fresh);--glow:rgba(143,224,127,.3);--ground:var(--fresh-ground);--ground-deep:var(--fresh-deep)}
-.place.reef{--i:1;--accent:var(--reef);--glow:rgba(191,147,255,.32);--ground:var(--reef-ground);--ground-deep:var(--reef-deep)}
-.place.shop{--i:2;--accent:var(--shop);--glow:rgba(255,168,87,.3);--ground:var(--shop-ground);--ground-deep:var(--shop-deep)}
-.place-copy{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:28px 22px 0;min-width:0}
-.when{font:600 .9375rem/1 var(--ui);color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:7px 14px 8px}
-.place h3{font-size:clamp(2.7rem,12vw,6.5rem)}
-.place-copy p:last-child{color:var(--mist);max-width:42ch}
-.place-shot{flex:1 1 auto;min-height:0;display:flex;justify-content:center;align-items:flex-start;padding-top:24px}
-.place-shot .phone{--pw:min(270px,64vw);transform:rotate(-3deg)}
-.place.reef .place-shot .phone{transform:rotate(3deg)}
-@media (min-width:760px){
-  .place{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);top:calc(env(safe-area-inset-top, 0px) + 32px + var(--i) * 18px);height:min(760px,calc(100svh - 72px))}
-  .place-copy{align-self:center;gap:18px;padding:clamp(36px,5vw,72px)}
-  .place-copy p:last-child{font-size:clamp(1.0625rem,1.4vw,1.2rem)}
-  .place-shot{padding-top:clamp(40px,5vw,64px)}
-  .place-shot .phone{--pw:min(340px,32vw)}
-}
-@media (max-height:600px){
-  .place{position:relative;top:auto;height:auto}
-  .place-shot{height:440px}
-}
 
 /* ---------- 5. the final level ---------- */
 .bigblue{position:relative;isolation:isolate;overflow:hidden;padding-block:clamp(96px,12vw,180px) clamp(150px,18vw,260px);
@@ -361,9 +291,7 @@ a{color:inherit}
 .final .scene::before,.bigblue .scene::before{content:"";position:absolute;z-index:1;inset:0 0 auto;height:22%;background:linear-gradient(180deg,var(--abyss),rgba(3,20,42,0))}
 .final .ceiling{-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 30%,rgba(0,0,0,.45) 60%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 30%,rgba(0,0,0,.45) 60%,transparent 100%)}
 .final h2{font-size:clamp(3rem,11vw,7.5rem);max-width:12ch}
-.final .stores,.final .free{justify-content:center}
-.final .stores{margin-top:8px}
-@media (max-width:479px){.final .stores{max-width:420px}}
+
 
 /* ---------- 9. footer ---------- */
 .foot{background:var(--trench);border-top:1px solid var(--line);padding-block:36px 40px}
@@ -385,37 +313,9 @@ a{color:inherit}
 .keyart .film{object-position:64% 42%}
 @media (max-width:899px){.keyart .film{object-position:70% 50%}}
 
-/* ---------- the store buttons catch the light now and then ---------- */
-.store{position:relative;overflow:hidden}
-.store::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,rgba(238,249,255,0) 36%,rgba(238,249,255,.2) 50%,rgba(238,249,255,0) 64%);transform:translateX(-120%)}
-@media (prefers-reduced-motion:no-preference){
-  .store::after{animation:sheen 7.5s ease-in-out 2.6s infinite}
-  .store+.store::after{animation-delay:2.95s}
-  .live.is-off .store::after{animation-play-state:paused}
-}
-@keyframes sheen{0%,74%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
 
-/* ---------- 2b. the living tank ---------- */
-.alive{position:relative;overflow-x:clip;padding-block:clamp(24px,4vw,64px) clamp(80px,10vw,150px)}
-.alive-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(30px,4vw,60px);align-items:center}
-.alive-copy{display:flex;flex-direction:column;align-items:flex-start;gap:20px;min-width:0}
-.alive h2{font-size:clamp(3rem,11vw,7rem)}
-.alive-copy p{max-width:40ch;color:var(--mist);font-size:clamp(1.0625rem,1.4vw,1.2rem)}
-.seg{display:inline-flex;gap:4px;padding:4px;margin-top:6px;border-radius:999px;background:var(--glass);border:1px solid var(--line)}
-.seg button{min-height:44px;font:600 1rem/1 var(--ui);color:var(--mist);background:none;border:0;border-radius:999px;padding:12px 18px 13px;cursor:pointer;transition:background .2s ease,color .2s ease,transform .16s var(--ease-out)}
-.seg button:active{transform:scale(.97)}
-@media (hover:hover) and (pointer:fine){.seg button:hover{color:var(--foam)}}
-.seg button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink)}
-.window{position:relative;isolation:isolate;min-width:0;--spill:rgba(52,194,238,.34)}
-.window.reef-on{--spill:rgba(191,147,255,.36)}
-.window::before{content:"";position:absolute;inset:10% -5% -9%;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,var(--spill),rgba(17,128,184,0));transition:background .7s ease}
-.glass{position:relative;aspect-ratio:96/69;max-width:100%;overflow:hidden;border-radius:clamp(18px,2.4vw,32px);background:var(--bezel);border:1px solid rgba(238,249,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 50px 90px -42px rgba(0,0,0,.95)}
-.layer{position:absolute;inset:0;opacity:0;transition:opacity .7s ease}
-.layer.show{opacity:1}
-.layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.layer .film{transition-duration:.6s}
-.window figcaption{margin-top:14px;font:500 .9375rem/1.35 var(--ui);color:var(--mist)}
-@media (min-width:1000px){.alive-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
+
+
 
 /* the phone beside the three beats shows a different screen for each */
 .phone .screens{position:relative;aspect-ratio:9/19.5;overflow:hidden;border-radius:calc(var(--pw) * .13);background:var(--deep)}
@@ -467,35 +367,237 @@ a{color:inherit}
 /* ---------- the hero comes up through the water as the page opens ---------- */
 @media (prefers-reduced-motion:no-preference){
   .hero-copy>.logo{animation:surface-logo 1.25s cubic-bezier(.16,.84,.3,1) .1s both}
-  .hook span,.hero-copy>.kind,.hero-copy>.stores,.hero-copy>.free{animation:surface .9s cubic-bezier(.16,.84,.3,1) both}
+  .hook span,.hero-copy>.kind,.hero-copy>.tags{animation:surface .9s cubic-bezier(.16,.84,.3,1) both}
   .hook span{animation-delay:.42s}
   .hook span+span{animation-delay:.58s}
   .hero-copy>.kind{animation-delay:.78s}
-  .hero-copy>.stores{animation-delay:.9s}
-  .hero-copy>.free{animation-delay:1.02s}
+  .hero-copy>.tags{animation-delay:.9s}
   .dive{animation:fade-in 1s ease 1.5s both}
 }
 @keyframes surface{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
 @keyframes surface-logo{from{opacity:0;transform:translateY(26px) scale(1.07);filter:blur(12px) drop-shadow(0 18px 34px rgba(2,12,25,.45))}to{opacity:1;transform:none;filter:blur(0) drop-shadow(0 18px 34px rgba(2,12,25,.45))}}
 @keyframes fade-in{from{opacity:0}to{opacity:1}}
+/* ================= v4: the pieces brought over from the new design, and the page made shorter ================= */
 
-/* ---------- scroll reveals: driven by scroll position, visible at rest, off for reduced motion ---------- */
-@media (prefers-reduced-motion:no-preference){
-  @supports (animation-timeline:view()){
-    .reveal h2 span{animation:light-up linear forwards;animation-timeline:view();animation-range:entry 0% cover 42%}
-    .rise{animation:rise linear forwards;animation-timeline:view();animation-range:entry 0% entry 80%}
-    .beats{view-timeline:--beats block}
-    .beat-phone .phone{animation:turn linear both;animation-timeline:--beats;animation-range:cover 5% cover 95%}
-    .levels{view-timeline:--levels block}
-    .levels::before{transform-origin:50% 0;animation:draw linear both;animation-timeline:--levels;animation-range:cover 14% cover 64%}
-    .lv .star{animation:pop linear both;animation-timeline:view();animation-range:entry 5% entry 95%}
-  }
+/* Price tags: a fish shop marks a tank with a swing tag on a thread, and the price is the point. */
+.tags{display:flex;flex-wrap:wrap;gap:14px 20px;padding:20px 0 0 6px}
+.ptag{--tilt:-3deg;--paper:#fff3d2;position:relative;isolation:isolate;display:flex;align-items:center;gap:14px;min-height:58px;padding:9px 20px 10px 34px;color:#16263a;
+  transform:rotate(var(--tilt));transform-origin:8px 50%;filter:drop-shadow(0 12px 16px rgba(0,8,20,.45));transition:transform .5s var(--ease-out)}
+.ptag+.ptag{--tilt:2.5deg}
+.ptag::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);border-radius:0 9px 9px 0;clip-path:polygon(17px 0,100% 0,100% 100%,17px 100%,0 50%)}
+.ptag::after{content:"";position:absolute;left:12px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--deep);box-shadow:inset 0 1px 2px rgba(0,0,0,.6),0 0 0 2px #e7d6a8}
+.ptag-price{font:700 1.85rem/1 var(--ui);color:#c4421d;letter-spacing:-.01em}
+.ptag-where{display:flex;flex-direction:column;gap:2px;padding-left:14px;border-left:1.5px dashed rgba(22,38,58,.28)}
+.ptag-where b{font:600 1.08rem/1.1 var(--ui);white-space:nowrap}
+.ptag-where small{font:500 .82rem/1.1 var(--ui);color:#5a6a78}
+@media (hover:hover) and (pointer:fine){.ptag:hover{transform:rotate(calc(var(--tilt) * -1.4))}}
+@media (max-width:479px){
+  .tags{flex-direction:column;align-items:flex-start;gap:10px}
+  .ptag+.ptag{margin-left:22px}
+  .final .tags{align-items:center}
+  .final .ptag+.ptag{margin-left:0}
 }
+
+/* ---------- 2. the reveal, with the shoal of 81 that scatters from a tap ---------- */
+.reveal{position:relative;padding-block:clamp(72px,9vw,150px) clamp(36px,5vw,90px)}
+.reveal-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:center}
+.reveal h2{font-size:clamp(3rem,10.6vw,8rem);line-height:.88}
+.reveal h2 span{display:block}
+.shoalbox{min-width:0}
+.shoal{display:block;width:100%;aspect-ratio:5/3;touch-action:manipulation;cursor:pointer}
+.shoalbox figcaption{margin-top:6px;max-width:42ch;font:500 clamp(1.05rem,1.6vw,1.3rem)/1.4 var(--ui);color:var(--mist)}
+.k{font-weight:600}
+.fw,.k.fw{color:var(--fresh)}
+.rf,.k.rf{color:var(--reef)}
+@media (prefers-reduced-motion:reduce){.tap-note{display:none}}
+@media (min-width:1000px){
+  .reveal-grid{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
+  .reveal h2{font-size:clamp(3rem,7.2vw,7.6rem)}
+}
+
+/* ---------- 2b. the living tank: the game's own fish, live; or the reef clip ---------- */
+.alive{position:relative;overflow-x:clip;padding-block:clamp(36px,5vw,90px) clamp(56px,7vw,110px)}
+.alive-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,4vw,56px);align-items:center}
+.alive-copy{display:flex;flex-direction:column;align-items:flex-start;gap:16px;min-width:0}
+.alive h2{font-size:clamp(2.8rem,10vw,6.5rem)}
+.alive-copy p{max-width:40ch;color:var(--mist);font-size:clamp(1.0625rem,1.35vw,1.2rem)}
+.seg{display:inline-flex;gap:4px;padding:4px;margin-top:4px;border-radius:999px;background:var(--glass);border:1px solid var(--line)}
+.seg button{min-height:44px;font:600 1rem/1 var(--ui);color:var(--mist);background:none;border:0;border-radius:999px;padding:12px 18px 13px;cursor:pointer;transition:background .2s ease,color .2s ease,transform .16s var(--ease-out)}
+.seg button:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.seg button:hover{color:var(--foam)}}
+.seg button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink)}
+.window{position:relative;isolation:isolate;min-width:0;--spill:rgba(52,194,238,.34)}
+.window.reef-on{--spill:rgba(191,147,255,.36)}
+.window::before{content:"";position:absolute;inset:10% -5% -9%;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,var(--spill),rgba(17,128,184,0));transition:background .7s ease}
+.glass{position:relative;aspect-ratio:3/2;max-width:100%;overflow:hidden;overflow:clip;border-radius:clamp(18px,2.4vw,32px);background:var(--bezel);border:1px solid rgba(238,249,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 50px 90px -42px rgba(0,0,0,.95)}
+.layer{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .7s ease,visibility 0s linear .7s}
+.layer.show{opacity:1;visibility:visible;transition:opacity .7s ease}
+.layer>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.layer .film{transition-duration:.6s}
+.livetank{position:absolute;inset:0}
+.livetank>img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
+.tank__live{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--ease-out);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.tank__live>img,.tank__live>canvas{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none}
+.tank__live>img{object-fit:cover}
+.livetank.is-live>.tank__live{opacity:1}
+/* a pinch of flakes: the food tin's lid is the button's icon */
+.feed{position:absolute;left:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:8px 16px 9px 9px;border-radius:999px;cursor:pointer;
+  font:600 .95rem/1 var(--ui);color:var(--foam);background:rgba(3,20,42,.62);border:1px solid rgba(238,249,255,.22);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:transform .16s var(--ease-out),background .2s ease}
+.feed span{width:26px;height:26px;border-radius:50%;background:
+  radial-gradient(circle at 34% 38%,#c4421d 0 2px,transparent 2.5px),radial-gradient(circle at 62% 32%,#f0a23a 0 1.6px,transparent 2px),radial-gradient(circle at 54% 64%,#7bbf4a 0 1.8px,transparent 2.3px),radial-gradient(circle at 30% 66%,#f0a23a 0 1.4px,transparent 1.9px),
+  radial-gradient(circle,#ffe7a8 0 58%,var(--gold) 60% 100%);box-shadow:inset 0 0 0 2px rgba(59,42,0,.25)}
+.feed:active{transform:scale(.96)}
+@media (hover:hover) and (pointer:fine){.feed:hover{background:rgba(3,20,42,.82)}}
+.feed.dropped span{animation:shake .5s ease}
+@keyframes shake{30%{transform:rotate(-18deg)}60%{transform:rotate(12deg)}}
+.tank-pause{position:absolute;right:12px;bottom:12px;z-index:2;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;cursor:pointer;color:var(--foam);background:rgba(3,20,42,.62);border:1px solid rgba(238,249,255,.22);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.tank-pause svg{width:14px;height:14px;fill:currentColor}
+.window figcaption{margin-top:14px;font:500 .9375rem/1.35 var(--ui);color:var(--mist)}
+@media (min-width:1000px){.alive-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
+
+/* ---------- 3. how it plays: three words, one phone. The words are the switch. ---------- */
+.beats{position:relative;overflow-x:clip;padding-block:clamp(40px,6vw,100px);
+  background:radial-gradient(55% 38% at 72% 50%,rgba(17,128,184,.26),rgba(17,128,184,0) 72%)}
+.beats-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(26px,4vw,56px);align-items:center}
+.verbs-col{min-width:0}
+.verbs{display:flex;flex-direction:column;align-items:flex-start}
+.verbs button{position:relative;font-size:clamp(2.6rem,11.4vw,6.4rem);color:rgba(238,249,255,.2);background:none;border:0;border-radius:6px;padding:2px 0 12px;margin:0;cursor:pointer;text-align:left;transition:color .35s ease}
+.verbs button[aria-selected="true"]{color:var(--foam)}
+.verbs button i{position:absolute;left:0;bottom:5px;width:100%;height:4px;border-radius:2px;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s var(--ease-out)}
+.verbs button[aria-selected="true"] i{transform:scaleX(1)}
+@media (prefers-reduced-motion:no-preference){
+  .beats.cycling .verbs button[aria-selected="true"] i{animation:tide var(--cycle,5200ms) linear both}
+  .beats.cycling.is-off .verbs button i,.beats.cycling.is-held .verbs button i{animation-play-state:paused}
+}
+@keyframes tide{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (hover:hover) and (pointer:fine){.verbs button[aria-selected="false"]:hover{color:rgba(238,249,255,.5)}}
+.verb-copy{display:grid;margin-top:14px}
+.verb-copy p{grid-area:1/1;max-width:44ch;color:var(--mist);font-size:clamp(1.0625rem,1.35vw,1.2rem)}
+.verb-copy p[data-off]{visibility:hidden}
+.beat-phone{position:relative;justify-self:center;isolation:isolate}
+.beat-phone::before{content:"";position:absolute;inset:-18% -14%;z-index:-1;background:radial-gradient(closest-side,rgba(52,194,238,.4),rgba(17,128,184,.16) 55%,rgba(17,128,184,0))}
+.beat-phone .phone{--pw:min(236px,58vw);transform:perspective(1600px) rotateY(-10deg) rotateX(3deg) rotate(2deg)}
+@media (min-width:1000px){
+  .beats-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+  .beat-phone .phone{--pw:min(330px,25vw)}
+}
+
+/* ---------- 4. the places: a hand of three phones. Tap one at the back to bring it to the front. ---------- */
+.places{position:relative;overflow-x:clip;padding-block:clamp(48px,7vw,110px);--glow:rgba(143,224,127,.16)}
+.places[data-place="reef"]{--glow:rgba(191,147,255,.2)}
+.places[data-place="shop"]{--glow:rgba(255,168,87,.17)}
+.places::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 42% at 50% 60%,var(--glow),transparent 72%);transition:opacity .6s}
+.places-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,4vw,48px);align-items:center}
+.places-head{display:flex;flex-direction:column;gap:14px}
+.places-head h2{font-size:clamp(2.8rem,11vw,7rem)}
+.places-head p{max-width:46ch;color:var(--mist);font-size:clamp(1.0625rem,1.5vw,1.25rem)}
+.fan{--pw:min(208px,53vw);position:relative;height:calc(var(--pw) * 2.23 + 24px);margin-top:6px}
+.fan-card{position:absolute;left:50%;top:12px;padding:0;margin:0;border:0;border-radius:calc(var(--pw) * .16);background:none;cursor:pointer;
+  transform:translateX(-50%) var(--at,translateX(0));transition:transform .65s var(--ease-out),filter .65s ease;z-index:var(--z,1)}
+.fan .phone{--pw:inherit;display:block}
+.fan-card[data-slot="0"]{--z:3;--at:translateX(0)}
+.fan-card[data-slot="1"]{--z:2;--at:translateX(-40%) rotate(-9deg) scale(.84);filter:brightness(.5) saturate(.8)}
+.fan-card[data-slot="2"]{--z:1;--at:translateX(40%) rotate(9deg) scale(.84);filter:brightness(.5) saturate(.8)}
+@media (hover:hover) and (pointer:fine){.fan-card[data-slot="1"]:hover,.fan-card[data-slot="2"]:hover{filter:brightness(.72)}}
+.fan-card:focus-visible{outline-offset:6px}
+.place-copies{display:grid}
+.place-copy{grid-area:1/1;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0}
+.place-copy[data-off]{visibility:hidden}
+.place-copy.fresh{--accent:var(--fresh)}.place-copy.reef{--accent:var(--reef)}.place-copy.shop{--accent:var(--shop)}
+.place-copy h3{font-size:clamp(2.4rem,9vw,4.8rem);color:var(--accent)}
+.place-copy>p:last-child{max-width:44ch;color:var(--mist)}
+.when{display:flex;align-items:center;gap:10px;font:600 1rem/1 var(--ui);color:var(--foam)}
+.lvstar{position:relative;display:grid;place-items:center;flex:none;width:38px;height:38px}
+.lvstar svg{position:absolute;inset:0;width:100%;height:100%;fill:var(--gold);stroke:var(--gold);stroke-width:9;stroke-linejoin:round;overflow:visible}
+.lvstar b{position:relative;padding-top:4px;font:700 .9rem/1 var(--ui);color:var(--gold-ink)}
+@media (min-width:1000px){
+  .places-grid{grid-template-columns:minmax(0,6fr) minmax(0,5fr);grid-template-areas:"head head" "fan copy";row-gap:clamp(28px,3vw,48px)}
+  .places-head{grid-area:head}
+  .fan{grid-area:fan;--pw:min(290px,21vw)}
+  .place-copies{grid-area:copy}
+}
+
+/* ---------- 4b. the regulars: the moving list carries it, without a phone ---------- */
+.regulars{padding-block:clamp(48px,7vw,110px) clamp(44px,6vw,96px)}
+.reg-head{grid-template-columns:minmax(0,1fr)!important;margin-bottom:clamp(28px,4vw,56px)}
+
+/* ---------- 5. The Big Blue: a smaller phone ---------- */
+.bigblue{padding-block:clamp(64px,9vw,150px) clamp(96px,13vw,210px)}
+.bb-phone .phone{--pw:min(232px,58vw)}
+@media (min-width:1000px){.bb-phone .phone{--pw:min(320px,24vw)}}
+
+/* ---------- 6. the levels: a list on a wide page, a swipe track on a phone ---------- */
+.journey{padding-block:clamp(56px,8vw,140px)}
+.swipe-hint{font:500 .9375rem/1.3 var(--ui);color:var(--gold)}
+@media (max-width:999px){
+  .levels{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
+    margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)));padding:0 max(16px, env(safe-area-inset-right, 0px)) 6px max(16px, env(safe-area-inset-left, 0px));scroll-padding-inline:max(16px, env(safe-area-inset-left, 0px))}
+  .levels::-webkit-scrollbar{display:none}
+  .levels::before{display:none}
+  .lv{flex:0 0 min(60vw,250px);grid-template-columns:none;grid-template-rows:84px auto;justify-items:start;align-items:start;gap:10px;padding:0 20px 0 0;scroll-snap-align:start}
+  .lv::after{content:"";position:absolute;left:62px;right:-2px;top:41px;height:2px;background:linear-gradient(90deg,rgba(52,194,238,.8),rgba(255,213,74,.8))}
+  .lv:last-child::after{display:none}
+  .lv .star{align-self:center;justify-self:start;margin-left:0}
+  .lv.finale,.lv.beyond{margin-top:0}
+  .lv.finale::before,.lv.beyond::before{display:none}
+  .lv.finale::after{background:repeating-linear-gradient(90deg,var(--gold) 0 6px,transparent 6px 12px)}
+  .lv p{font-size:1rem}
+  .journey-grid{gap:28px}
+}
+@media (min-width:1000px){.swipe-hint{display:none}}
+
+/* ---------- 7. made in Perth: six of the 81 at their real size, then the questions ---------- */
+.maker{padding-block:clamp(56px,8vw,130px) clamp(40px,5vw,90px)}
+.maker-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(26px,4vw,56px);align-items:start}
+.maker-copy{display:flex;flex-direction:column;gap:18px;min-width:0;max-width:none}
+.maker h2{font-size:clamp(2.8rem,10vw,6rem)}
+.maker-copy p{max-width:46ch;color:var(--mist);font-size:clamp(1.0625rem,1.4vw,1.2rem)}
+.sizes{--cm:12.5px;min-width:0}
+.ruler{position:relative;height:34px;width:calc(15 * var(--cm) + 2px);
+  background:repeating-linear-gradient(90deg,var(--gold) 0 2px,transparent 2px calc(5 * var(--cm))) 0 100% / 100% 14px no-repeat,
+    repeating-linear-gradient(90deg,rgba(255,213,74,.55) 0 1px,transparent 1px var(--cm)) 0 100% / 100% 7px no-repeat}
+.ruler::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold)}
+.ruler span{position:absolute;top:0;left:calc(var(--at) * var(--cm));transform:translateX(-50%);font:600 .8rem/1.2 var(--ui);color:var(--gold);white-space:nowrap}
+.ruler span:first-child{transform:none}
+.ruler span.cm{transform:translateX(-30%)}
+.fishes{display:grid;gap:8px;padding-top:10px;
+  background:repeating-linear-gradient(90deg,rgba(255,213,74,.12) 0 1px,transparent 1px calc(5 * var(--cm))) 0 0 / calc(15 * var(--cm) + 1px) 100% no-repeat}
+.fish{display:grid;grid-template-columns:calc(15 * var(--cm)) minmax(0,1fr);column-gap:14px;align-items:center}
+.fish-pic{width:calc(var(--len) * var(--cm));height:auto;transform-origin:65% 50%;cursor:pointer}
+.fish-pic.is-swim{animation:flick .7s cubic-bezier(.3,.7,.4,1)}
+@keyframes flick{30%{transform:translateX(5px) skewX(-7deg)}60%{transform:translateX(-3px) skewX(4deg)}}
+.fish p{font:500 .95rem/1.3 var(--ui);color:var(--mist)}
+.fish p b{display:block;font-weight:600;color:var(--foam)}
+.sizes figcaption{margin-top:12px;font:500 .95rem/1.4 var(--ui);color:var(--mist)}
+@media (min-width:600px){.sizes{--cm:20px}}
+@media (min-width:1000px){.maker-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}.sizes{--cm:24px}.fishes{gap:12px}}
+
+/* the questions: each answer opens under its question; the marker is a bubble that fills and lifts */
+.ask{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(16px,3vw,40px);margin-top:clamp(52px,7vw,110px)}
+.ask h2{font-size:clamp(2.2rem,7.5vw,4.4rem);max-width:12ch}
+.faq{display:flex;flex-direction:column;border-top:1px solid var(--line);min-width:0}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:48px;padding:13px 2px;cursor:pointer;font:600 clamp(1.05rem,1.5vw,1.2rem)/1.3 var(--ui);color:var(--foam)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:15px;height:15px;border-radius:50%;border:2px solid var(--mist);transition:background .25s ease,border-color .25s ease,transform .4s var(--ease-out)}
+.faq details[open] summary::after{background:var(--gold);border-color:var(--gold);transform:translateY(-5px) scale(.78)}
+@media (hover:hover) and (pointer:fine){.faq summary:hover::after{border-color:var(--foam)}}
+.faq p{padding:0 2px 16px;max-width:56ch;color:var(--mist)}
+.faq a{color:var(--foam);text-underline-offset:3px}
+@media (min-width:1000px){.ask{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
+
+/* ---------- 8. the last call: shorter ---------- */
+.final{padding-block:clamp(64px,9vw,140px) clamp(64px,8vw,130px)}
+.final-inner{gap:18px}
+.final-logo{width:min(320px,72%)}
+.final h2{font-size:clamp(2.8rem,10vw,6.4rem)}
+.final .tags{justify-content:center;padding-left:0}
+.bb-when.when{flex-wrap:nowrap;font:500 1.0625rem/1.3 var(--ui);color:var(--mist)}
+
+
+/* ---------- one scroll moment: the four lines of the reveal light up as they come in ---------- */
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){.reveal h2 span{animation:light-up linear forwards;animation-timeline:view();animation-range:entry 0% cover 42%}}}
 @keyframes light-up{from{color:rgba(238,249,255,.13);transform:translateY(.12em)}to{color:var(--foam);transform:none}}
-@keyframes rise{from{opacity:0;transform:translateY(44px)}to{opacity:1;transform:none}}
-@keyframes draw{from{transform:scaleY(0)}to{transform:none}}
-@keyframes pop{from{transform:scale(.25) rotate(-70deg)}to{transform:none}}
-@keyframes turn{from{transform:perspective(1600px) rotateY(-20deg) rotateX(6deg) rotate(4deg)}to{transform:perspective(1600px) rotateY(10deg) rotateX(-2deg) rotate(-2deg)}}
 </style>
 </head>
 <body>
@@ -503,8 +605,7 @@ a{color:inherit}
 
 <svg class="defs" aria-hidden="true" focusable="false">
   <symbol id="star" viewBox="0 0 100 100"><path d="M50 7L63.5 34.4 93.7 38.8 71.9 60.1 77 90.2 50 76 23 90.2 28.1 60.1 6.3 38.8 36.5 34.4Z"/></symbol>
-  <symbol id="ic-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.8"/><path d="M10.5 18.3h3"/></symbol>
-</svg>
+  </svg>
 
 <header class="hero live has-art" id="top">
   <div class="scene" aria-hidden="true">
@@ -542,47 +643,54 @@ a{color:inherit}
       <h1 class="logo"><img src="img/logo.webp" alt="Tankscaper" width="640" height="263" fetchpriority="high" decoding="async"></h1>
       <p class="hook display"><span>Start with one old tank.</span> <span>Build up to a whale.</span></p>
       <p class="kind">A 3D aquarium tycoon game for iPhone and Android.</p>
-      <ul class="stores">
-        <li class="store"><svg aria-hidden="true"><use href="#ic-phone"/></svg><span><small>Coming soon to the</small><b>App Store</b></span></li>
-        <li class="store"><svg aria-hidden="true"><use href="#ic-phone"/></svg><span><small>Coming soon on</small><b>Google Play</b></span></li>
+      <ul class="tags" aria-label="Where to get it">
+        <li class="ptag"><span class="ptag-price">Free</span><span class="ptag-where"><b>App Store</b><small>coming soon</small></span></li>
+        <li class="ptag"><span class="ptag-price">Free</span><span class="ptag-where"><b>Google Play</b><small>coming soon</small></span></li>
       </ul>
-      <p class="free"><b>Free to play.</b></p>
     </div>
   </div>
   <a class="dive" href="#reveal"><span>Dive in</span><i aria-hidden="true"></i></a>
 </header>
 
 <main>
-  <section class="reveal" id="reveal" aria-label="What's in the game">
-    <div class="wrap">
-      <h2 class="display"><span>Real rock.</span> <span>Real wood.</span> <span>Real plants.</span> <span>81 real species.</span></h2>
-      <p class="reveal-sub rise">42 freshwater and 39 reef species, in tanks from 30&nbsp;cm to 300&nbsp;cm.</p>
+  <section class="reveal live" id="reveal" aria-labelledby="reveal-title">
+    <div class="wrap reveal-grid">
+      <h2 class="display" id="reveal-title"><span>Real rock.</span> <span>Real wood.</span> <span>Real plants.</span> <span>81 real species.</span></h2>
+      <figure class="shoalbox">
+        <canvas class="shoal" role="img" aria-label="A shoal of 81 fish, one for each species: 42 freshwater and 39 reef"></canvas>
+        <figcaption><span class="k fw">42 freshwater</span> and <span class="k rf">39 reef</span> species, one fish for each, in tanks from 30&nbsp;cm to 300&nbsp;cm.<span class="tap-note"> Tap the shoal.</span></figcaption>
+      </figure>
     </div>
   </section>
 
   <section class="alive live" id="alive" aria-labelledby="alive-title">
     <div class="wrap alive-grid">
       <div class="alive-copy">
-        <h2 class="display rise" id="alive-title">And all of it moves.</h2>
-        <p>Stem plants bend from the base and the wave runs up to the tip, then on across the tank. Floating plants trail their roots. Pothos and monstera grow out of the top.</p>
-        <p>In the reef, sea fans, soft corals and branching corals all move with the flow.</p>
+        <h2 class="display" id="alive-title">And all of it moves.</h2>
+        <p>Stems bend from the base and the wave runs up to the tip. Floating plants trail their roots. In the reef, sea fans and soft corals sway with the flow.</p>
         <div class="seg" role="group" aria-label="Tank to watch">
-          <button type="button" id="watch-fresh" data-tank="fresh" aria-pressed="true">Planted tank</button>
-          <button type="button" id="watch-reef" data-tank="reef" aria-pressed="false">Reef tank</button>
+          <button type="button" id="watch-fresh" data-view="fresh" aria-pressed="true">Planted tank</button>
+          <button type="button" id="watch-reef" data-view="reef" aria-pressed="false">Reef tank</button>
         </div>
       </div>
       <figure class="window">
         <div class="glass">
-          <div class="layer show" data-tank="fresh" data-cap="A 90 cm planted tank, recorded in the game.">
-            <img src="img/tank-poster.webp" alt="A planted tank in the game: red and green stem plants, Amazon swords and spider wood, floating plants trailing roots, pothos and monstera growing out of the top, and guppies and tetras swimming through" width="960" height="690" loading="lazy" decoding="async">
-            <video class="film" muted loop playsinline disablepictureinpicture preload="none" tabindex="-1" aria-hidden="true" data-src="vid/tank.mp4" data-anim="img/tank-anim.webp"></video>
+          <div class="layer show" data-view="fresh" data-cap="The game's own fish, live. Tap the water to feed them." data-cap-still="A planted tank built in the game.">
+            <div class="livetank" data-tank="tank/" data-tank-back="img/hero-still.webp" data-tank-h="54" data-tank-fog="#1e4d57">
+              <img src="img/hero-poster-1600.webp" srcset="img/hero-poster-1600.webp 1600w, img/hero-poster.webp 2240w" sizes="(max-width: 999px) 100vw, 58vw" alt="A planted tank built in the game: a shoal of cardinal tetras over a green carpet, with guppies, discus, angelfish and a pair of rams among stem plants and wood" width="1600" height="900" loading="lazy" decoding="async">
+            </div>
+            <button class="feed" type="button" data-tank-feed hidden><span aria-hidden="true"></span>Drop food</button>
+            <button class="tank-pause" type="button" data-tank-pause hidden aria-label="Pause the live tank"></button>
           </div>
-          <div class="layer" data-tank="reef" data-cap="A 60 cm nano reef, recorded in the game.">
-            <img src="img/reef-poster.webp" alt="A nano reef in the game: live rock with sea fans, branching corals, a purple anemone, a toadstool coral and zoanthids on white sand, with two clownfish and a yellow goby" width="960" height="690" loading="lazy" decoding="async">
-            <video class="film" muted loop playsinline disablepictureinpicture preload="none" tabindex="-1" aria-hidden="true" data-src="vid/reef.mp4" data-anim="img/reef-anim.webp"></video>
+          <div class="layer" data-view="reef" data-cap="The game's own reef fish, live. Tap the water to feed them." data-cap-still="A reef tank built in the game.">
+            <div class="livetank" data-tank="tank/" data-held data-tank-back="img/reef-still.webp" data-tank-h="50" data-tank-fog="#0b3a63" data-tank-opts='{"cast":["clown","damsel","bluetang","yellowtang","flameangel","gramma","firefish","banggai","mandarin"],"glow":0.55,"floor":0.22}'>
+              <img src="img/reef-poster.webp" alt="A reef tank built in the game: live rock covered in corals on white sand, with clownfish, a blue tang, a yellow tang, a flame angelfish and a shoal of damsels" width="1332" height="888" loading="lazy" decoding="async">
+            </div>
+            <button class="feed" type="button" data-tank-feed hidden><span aria-hidden="true"></span>Drop food</button>
+            <button class="tank-pause" type="button" data-tank-pause hidden aria-label="Pause the live reef"></button>
           </div>
         </div>
-        <figcaption id="watch-cap">A 90 cm planted tank, recorded in the game.</figcaption>
+        <figcaption id="watch-cap">A planted tank built in the game.</figcaption>
       </figure>
     </div>
   </section>
@@ -590,76 +698,51 @@ a{color:inherit}
   <section class="beats" id="play" aria-labelledby="play-title">
     <h2 class="sr-only" id="play-title">How it plays</h2>
     <div class="wrap beats-grid">
-      <article class="beat b1">
-        <h3 class="display">Build.</h3>
-        <p>Pick a tank from a 30&nbsp;cm nano up to a 300&nbsp;cm show tank, then lay rock, wood, plants and sand the way you would in real life. Rocks settle, wood can lean, and plants grip what they sit on.</p>
-        <ul class="ticks">
-          <li>Seiryu, dragon stone, lava rock and live rock</li>
-          <li>Spider wood, manzanita, redmoor and driftwood, each in several shapes</li>
-          <li>Carpets, stem plants, Anubias, Java fern and moss</li>
-          <li>Pothos, monstera and peace lily growing out of the top</li>
-          <li>Filters, heaters and lights that matter to the fish</li>
-        </ul>
-      </article>
+      <div class="verbs-col">
+        <div class="verbs" role="tablist" aria-label="How it plays">
+          <button class="display" type="button" role="tab" id="v-build" aria-selected="true" aria-controls="p-build" data-screen="0">Build.<i aria-hidden="true"></i></button>
+          <button class="display" type="button" role="tab" id="v-deco" aria-selected="false" aria-controls="p-deco" data-screen="1" tabindex="-1">Decorate.<i aria-hidden="true"></i></button>
+          <button class="display" type="button" role="tab" id="v-life" aria-selected="false" aria-controls="p-life" data-screen="2" tabindex="-1">Bring it to life.<i aria-hidden="true"></i></button>
+        </div>
+        <div class="verb-copy">
+          <p role="tabpanel" id="p-build" aria-labelledby="v-build">Pick a tank from a 30&nbsp;cm nano to a 300&nbsp;cm show tank, then lay Seiryu stone, spider wood, carpets and stem plants the way you would in real life. Rocks settle, wood leans, and plants grip what they sit on.</p>
+          <p role="tabpanel" id="p-deco" aria-labelledby="v-deco" data-off>Paint carpets and gravel, colour your corals and choose each fish's colour form. Give any fish a name and it stays on its card. Tetras school, catfish work the sand, and rays glide and settle.</p>
+          <p role="tabpanel" id="p-life" aria-labelledby="v-life" data-off>Feed the fish, clean the glass and test the water. Tanks earn coins while you're away, and there are daily goals, seasonal events, 25 achievements and golden fish to find.</p>
+        </div>
+      </div>
       <figure class="beat-phone">
         <div class="phone"><div class="screens"><img class="show" src="img/ui-build.webp" srcset="img/ui-build-600.webp 600w, img/ui-build.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The scaping screen: a planted 90 cm tank with the catalogue of rocks, wood and plants open under it" data-name="Scaping a 90&nbsp;cm tank" width="900" height="1950" fetchpriority="low" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADwAwCdASoMABoAPt1cpkyopSOiMAgBEBuJYgCdACPtClorMvqLszHIAP7jYVnGtZDAaCgaoPJEGkb6Ri1WczsiwfiAcuwBg43bG0r94P3CvY0x0Rc2vkSQ2OvPUUC/QnUsjnB1T/2+0UncNjFdR202KIxCFWpVgO/KHUfLsNsJ0429955I03cSxQAX8RnvYBIAAA==) center/cover"><img src="img/ui-name.webp" srcset="img/ui-name-600.webp 600w, img/ui-name.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="Following a guppy in the game: its card shows the name it has been given, Biscuit, above its care notes" data-name="Naming a fish" width="900" height="1950" loading="lazy" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAABwBACdASoMABoAPt1cpkyopSOiMAgBEBuJbACdMoADY1lmbmnwGvCltj68EAD+3aE0mR23IWYTlsgwBLk3HZEQii5L6/9OPhSULnbM2tptZDjcZ9YJFhSbIHiyOdFXciAAZcXEvND43q6V+T/X26tT2sMVB+tfRF1fW9FvoKexe9vhaIr7u27lNRK8Cc56E3J+2dv9mqcAAA==) center/cover"><img src="img/ui-goals.webp" srcset="img/ui-goals-600.webp 600w, img/ui-goals.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="Today's goals in the game: the daily streak, today's order from Bruno the baker and the goals under it" data-name="Today's goals and today's order" width="900" height="1950" loading="lazy" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAACQBACdASoMABoAPt1apkyopSOiMAgBEBuJZgCdMoLT/ujAJEUbP7hhLLle+gAA/uRQFt8zcuJkGH34m6vbwBGuwxkXfG32Kmgci5Z3SXlMgEw8/BtgAse0XKSRG8FqxHLY0XHGhx3V+LwAGk5F8oGwRWeyOgj0Ncq+rMDvSHyYBSrNGoagtMAA) center/cover"></div></div>
         <figcaption class="screen-name" id="screen-name">Scaping a 90&nbsp;cm tank</figcaption>
       </figure>
-      <article class="beat b2">
-        <h3 class="display">Decorate.</h3>
-        <p>Paint carpets and gravel, colour your corals and choose each fish's colour form. Give any fish a name and it stays on its card. Every species is modelled and swims the way it does in a real tank: tetras school, catfish work the sand, rays glide and settle. Female guppies are plainer and shorter in the tail than the males, as they are in a shop tank.</p>
-      </article>
-      <article class="beat b3">
-        <h3 class="display">Bring it to life.</h3>
-        <p>Feed the fish, clean the glass and test the water. Your tanks earn coins while you're away, and every level opens something new.</p>
-        <ul class="ticks">
-          <li>Daily goals, a daily gift and today's order</li>
-          <li>Seasonal events with prizes and keepsakes</li>
-          <li>25 achievements to earn</li>
-          <li>A collection book</li>
-          <li>Gems for premium floors, walls and perks</li>
-          <li>Golden fish</li>
-        </ul>
-      </article>
     </div>
   </section>
 
-  <section class="places" id="places" aria-labelledby="places-title">
-    <div class="wrap">
-      <header class="places-head rise">
+  <section class="places" id="places" aria-labelledby="places-title" data-place="fresh">
+    <div class="wrap places-grid">
+      <header class="places-head">
         <h2 class="display" id="places-title">Four places to build.</h2>
-        <p>Each one starts its own way, and Aunt Marina guides you through the story.</p>
+        <p>Each one starts its own way, and Aunt Marina guides you through the story. The fourth, The Big Blue, is further down.</p>
       </header>
-      <div class="deck">
-        <article class="place fresh">
-          <div class="place-copy">
-            <p class="when">From the start</p>
-            <h3 class="display">Freshwater Room</h3>
-            <p>It starts in Aunt Marina's living room, where you uncover her old tank. From there the room fills up, tank by tank: planted tanks, tetras, goldfish, plecos and the big exotics.</p>
-          </div>
-          <div class="place-shot">
-            <div class="phone"><img src="img/shot-fresh.webp" srcset="img/shot-fresh-600.webp 600w, img/shot-fresh.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The fish room: planted tanks along a green fluted wall under framed fish prints, with coins waiting above each and a sofa and coffee table in front" width="900" height="1950" fetchpriority="low" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAAAQBQCdASoMABoAPt1apkyopSOiMAgBEBuJaAC7MoHgA5/8Ww6yXz6fqywUKa9MIGgAAP7u7H1chiSBGjznMiFJg4B6c8+IUmxMGKwsayD6QFxOyju9nJkUTurow63IitHkl6KFoxiEPgMxoSGc1hgZA3UHyncnp77YcTv4nuF0EDpKBvi1+VGOO0Og16lBtd+gXUeGn+n8GQEpMGbgQXpnwBsU8GqqzRKueItgAAA=) center/cover"></div>
-          </div>
+      <div class="fan" role="tablist" aria-label="Places">
+        <button type="button" role="tab" class="fan-card" data-place="fresh" id="t-fresh" aria-selected="true" aria-controls="c-fresh" aria-label="Freshwater Room"><span class="phone"><img src="img/shot-fresh.webp" srcset="img/shot-fresh-600.webp 600w, img/shot-fresh.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The fish room: planted tanks along a green fluted wall under framed fish prints, with coins waiting above each and a sofa and coffee table in front" width="900" height="1950" loading="lazy" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAAAQBQCdASoMABoAPt1apkyopSOiMAgBEBuJaAC7MoHgA5/8Ww6yXz6fqywUKa9MIGgAAP7u7H1chiSBGjznMiFJg4B6c8+IUmxMGKwsayD6QFxOyju9nJkUTurow63IitHkl6KFoxiEPgMxoSGc1hgZA3UHyncnp77YcTv4nuF0EDpKBvi1+VGOO0Og16lBtd+gXUeGn+n8GQEpMGbgQXpnwBsU8GqqzRKueItgAAA=) center/cover"></span></button>
+        <button type="button" role="tab" class="fan-card" data-place="reef" id="t-reef" aria-selected="false" aria-controls="c-reef" aria-label="Reef Room" tabindex="-1"><span class="phone"><img src="img/shot-reef.webp" srcset="img/shot-reef-600.webp 600w, img/shot-reef.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The reef room: reef tanks along a blue striped wall under jellyfish and eel prints, with a sofa and a table of test kits in front" width="900" height="1950" loading="lazy" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACQBACdASoMABoAPt1cpkyopSOiMAgBEBuJaACdEf/i2RWa4cDhO0+JWr8vigAA/vGDQrlstd1PYd2LcuQ8D0ONw8jMmHgkcX5li11pHopK+w+uE6+vuV4YFon2ehF8QbaKL8YeR3J+z0jiqIzgyro+KW/2Puh4PYwSxy8f5braC+VR572+IIf7LfLs5sdFH4PzZKvt/2+pv8Zu8FocPR2jc5X/MfU8UUDOIsC3DERxrZp7judnSmEwxYT+U9LsU9AAAA==) center/cover"></span></button>
+        <button type="button" role="tab" class="fan-card" data-place="shop" id="t-shop" aria-selected="false" aria-controls="c-shop" aria-label="Fish Shop" tabindex="-1"><span class="phone"><img src="img/shot-shop.webp" srcset="img/shot-shop-600.webp 600w, img/shot-shop.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The fish shop seen from above: walls of stocked tanks, the freshwater and reef exotics tanks, two regulars browsing and the shopkeeper at the counter" width="900" height="1950" loading="lazy" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAACQBACdASoMABoAPt1cp0yopSOiMAgBEBuJQBOmUAS24y//sg7JDajlrkHbqMAA/unZQHig5RZ6xlWNyUPLbo8mhlpU3cLN0VwisPBMfiMwNooJiHsuaGnj+Z36AK4JA1+NOBp4jxhEJg9LCkJ5SsOIYgQh3/kXUQ+096CctN3e7IDeJxFuM1wxzvFnQrQHdviwKCTnqf/rcq0n9HT0icoVyP0OwQAA) center/cover"></span></button>
+      </div>
+      <div class="place-copies">
+        <article class="place-copy fresh" role="tabpanel" id="c-fresh" aria-labelledby="t-fresh">
+          <p class="when"><span class="lvstar" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#star"/></svg><b>1</b></span>From the start</p>
+          <h3 class="display">Freshwater Room</h3>
+          <p>It starts in Aunt Marina's living room, where you uncover her old tank. From there the room fills up, tank by tank: planted tanks, tetras, goldfish, plecos and the big exotics.</p>
         </article>
-        <article class="place reef">
-          <div class="place-copy">
-            <p class="when">Opens at level 3</p>
-            <h3 class="display">Reef Room</h3>
-            <p>It starts as a run-down garage. Clear it out and make it over, with a water station for water changes. Then come the corals, clownfish, tangs, anemones and the shrimp that clean them.</p>
-          </div>
-          <div class="place-shot">
-            <div class="phone"><img src="img/shot-reef.webp" srcset="img/shot-reef-600.webp 600w, img/shot-reef.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The reef room: reef tanks along a blue striped wall under jellyfish and eel prints, with a sofa and a table of test kits in front" width="900" height="1950" fetchpriority="low" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACQBACdASoMABoAPt1cpkyopSOiMAgBEBuJaACdEf/i2RWa4cDhO0+JWr8vigAA/vGDQrlstd1PYd2LcuQ8D0ONw8jMmHgkcX5li11pHopK+w+uE6+vuV4YFon2ehF8QbaKL8YeR3J+z0jiqIzgyro+KW/2Puh4PYwSxy8f5braC+VR572+IIf7LfLs5sdFH4PzZKvt/2+pv8Zu8FocPR2jc5X/MfU8UUDOIsC3DERxrZp7judnSmEwxYT+U9LsU9AAAA==) center/cover"></div>
-          </div>
+        <article class="place-copy reef" role="tabpanel" id="c-reef" aria-labelledby="t-reef" data-off>
+          <p class="when"><span class="lvstar" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#star"/></svg><b>3</b></span>Opens at level 3</p>
+          <h3 class="display">Reef Room</h3>
+          <p>It starts as a run-down garage. Clear it out and make it over, with a water station for water changes. Then come the corals, clownfish, tangs, anemones and the shrimp that clean them.</p>
         </article>
-        <article class="place shop">
-          <div class="place-copy">
-            <p class="when">Opens at level 7</p>
-            <h3 class="display">Fish Shop</h3>
-            <p>Tidy it up, lay new floors and paint the walls. Then fill it with display tanks and tank walls while customers come in, browse and buy. Your regulars wear name tags, point at the fish they like and say what they think.</p>
-          </div>
-          <div class="place-shot">
-            <div class="phone"><img src="img/shot-shop.webp" srcset="img/shot-shop-600.webp 600w, img/shot-shop.webp 900w" sizes="(max-width: 899px) 76vw, 340px" alt="The fish shop seen from above: walls of stocked tanks, the freshwater and reef exotics tanks, two regulars browsing and the shopkeeper at the counter" width="900" height="1950" fetchpriority="low" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAACQBACdASoMABoAPt1cp0yopSOiMAgBEBuJQBOmUAS24y//sg7JDajlrkHbqMAA/unZQHig5RZ6xlWNyUPLbo8mhlpU3cLN0VwisPBMfiMwNooJiHsuaGnj+Z36AK4JA1+NOBp4jxhEJg9LCkJ5SsOIYgQh3/kXUQ+096CctN3e7IDeJxFuM1wxzvFnQrQHdviwKCTnqf/rcq0n9HT0icoVyP0OwQAA) center/cover"></div>
-          </div>
+        <article class="place-copy shop" role="tabpanel" id="c-shop" aria-labelledby="t-shop" data-off>
+          <p class="when"><span class="lvstar" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#star"/></svg><b>7</b></span>Opens at level 7</p>
+          <h3 class="display">Fish Shop</h3>
+          <p>Tidy it up, lay new floors and paint the walls. Then fill it with display tanks while customers come in, browse and buy. Your regulars wear name tags, point at the fish they like and say what they think.</p>
         </article>
       </div>
     </div>
@@ -669,12 +752,8 @@ a{color:inherit}
     <div class="wrap reg-head">
       <div class="reg-copy">
         <h2 class="display rise" id="regulars-title">Forty customers. Every one has a name.</h2>
-        <p>Each one asks for a tank. Build it the way they asked and they pay, say thanks, and come back later for another. Serve them and they become regulars, and regulars drop into your shop.</p>
-        <p>Here is what they ask for.</p>
+        <p>Each one asks for a tank. Build it the way they asked and they pay, say thanks and come back for another. Here is what they ask for.</p>
       </div>
-      <figure class="reg-phone">
-        <div class="phone"><img src="img/ui-journey.webp" srcset="img/ui-journey-600.webp 600w, img/ui-journey.webp 900w" sizes="(max-width: 899px) 70vw, 300px" alt="The journey screen in the game: a customer called Yuki asks for a tiny reef with a goby and a few corals, with a row of the regulars served so far and the achievements earned" width="900" height="1950" loading="lazy" decoding="async" style="background:#0a3250 url(data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQBACdASoMABoAPt1apkyopSOiMAgBEBuJQBOl65A9+pFVKtMf7NmYAAD+7E15EUO9eeaA/Uf7uy2qpqWbgOQKL8BFaz7Ww9EogBDpv69xCblpBevGJTJBAaxDk2oy0ZTVEdoAAAA=) center/cover"></div>
-      </figure>
     </div>
     <div class="marquee">
       <div class="belt"><ul><li class="cust"><span class="face" style="background-position:0.000% 0.000%"></span><b>Mrs Okafor<i></i></b><q>A tank for my grandson. Nothing fancy: a few plants and some bright little fish.</q></li><li class="cust"><span class="face" style="background-position:28.571% 0.000%"></span><b>Jess<i></i></b><q>A betta for my desk. Just the one, with some plants to hide in.</q></li><li class="cust"><span class="face" style="background-position:14.286% 0.000%"></span><b>Dev from the café<i></i></b><q>Something calm for the counter. Lots of green, a few peaceful fish.</q></li><li class="cust"><span class="face" style="background-position:85.714% 50.000%"></span><b>Gus<i></i></b><q>A betta, but with some friends who won't pick on him. Is that a thing?</q></li><li class="cust"><span class="face" style="background-position:57.143% 0.000%"></span><b>Priya<i></i></b><q>A shoal. One kind of fish, lots of them, all moving together.</q></li><li class="cust"><span class="face" style="background-position:14.286% 100.000%"></span><b>Aunty June<i></i></b><q>Livebearers, dear. Platies, mollies, that sort. I like a busy, cheerful tank.</q></li><li class="cust"><span class="face" style="background-position:100.000% 50.000%"></span><b>Wendy at the library<i></i></b><q>Something quiet for the reading corner. Rasboras, a gentle shoal, and plenty of plants.</q></li><li class="cust salt"><span class="face" style="background-position:42.857% 75.000%"></span><b>Zane<i></i></b><q>Blue fish. The brightest blue ones you've got, zipping about a reef.</q></li><li class="cust"><span class="face" style="background-position:100.000% 25.000%"></span><b>Nurse Abby<i></i></b><q>The night shift needs something soothing. Little tetras, a big glowing shoal of them.</q></li><li class="cust"><span class="face" style="background-position:0.000% 50.000%"></span><b>Coach Dan<i></i></b><q>Tough fish for the club rooms. Tiger barbs: fast, stripy, always in formation.</q></li><li class="cust"><span class="face" style="background-position:85.714% 75.000%"></span><b>Mr Petrov<i></i></b><q>I work nights. I want fish that come out when I get home: loaches, and something with them.</q></li><li class="cust"><span class="face" style="background-position:0.000% 25.000%"></span><b>Dr Chen<i></i></b><q>A planted jungle. Thick with greenery and not too many fish.</q></li><li class="cust salt"><span class="face" style="background-position:57.143% 50.000%"></span><b>Bruno the baker<i></i></b><q>A reef for the shop window. People should stop for the fish and stay for the bread.</q></li><li class="cust"><span class="face" style="background-position:28.571% 25.000%"></span><b>Bayside Primary<i></i></b><q>A community tank the kids can learn from. Four kinds of fish living together.</q></li><li class="cust"><span class="face" style="background-position:42.857% 50.000%"></span><b>Leila<i></i></b><q>Angelfish, gliding through tall plants. I saw it in a magazine and can't stop thinking about it.</q></li><li class="cust salt"><span class="face" style="background-position:0.000% 100.000%"></span><b>Chef Marco<i></i></b><q>A reef beside the pass. Ten fish, four kinds, all in good health. I notice everything.</q></li><li class="cust salt"><span class="face" style="background-position:0.000% 75.000%"></span><b>Skipper Mack<i></i></b><q>A yellow tang. Bright as a channel marker, with a proper bit of reef to cruise.</q></li><li class="cust"><span class="face" style="background-position:28.571% 75.000%"></span><b>Nonna Rosa<i></i></b><q>Discus. The king of fish. My husband always wanted them, so now I will have them.</q></li><li class="cust"><span class="face" style="background-position:85.714% 100.000%"></span><b>Grandmaster Wei<i></i></b><q>Fancy goldfish, chosen with care. Orandas, ranchu. Each one a living jewel.</q></li><li class="cust"><span class="face" style="background-position:42.857% 100.000%"></span><b>Professor Okoye<i></i></b><q>For my research: thirty fish, with one great shoal of tetras among dense planting.</q></li></ul><ul aria-hidden="true"><li class="cust"><span class="face" style="background-position:0.000% 0.000%"></span><b>Mrs Okafor<i></i></b><q>A tank for my grandson. Nothing fancy: a few plants and some bright little fish.</q></li><li class="cust"><span class="face" style="background-position:28.571% 0.000%"></span><b>Jess<i></i></b><q>A betta for my desk. Just the one, with some plants to hide in.</q></li><li class="cust"><span class="face" style="background-position:14.286% 0.000%"></span><b>Dev from the café<i></i></b><q>Something calm for the counter. Lots of green, a few peaceful fish.</q></li><li class="cust"><span class="face" style="background-position:85.714% 50.000%"></span><b>Gus<i></i></b><q>A betta, but with some friends who won't pick on him. Is that a thing?</q></li><li class="cust"><span class="face" style="background-position:57.143% 0.000%"></span><b>Priya<i></i></b><q>A shoal. One kind of fish, lots of them, all moving together.</q></li><li class="cust"><span class="face" style="background-position:14.286% 100.000%"></span><b>Aunty June<i></i></b><q>Livebearers, dear. Platies, mollies, that sort. I like a busy, cheerful tank.</q></li><li class="cust"><span class="face" style="background-position:100.000% 50.000%"></span><b>Wendy at the library<i></i></b><q>Something quiet for the reading corner. Rasboras, a gentle shoal, and plenty of plants.</q></li><li class="cust salt"><span class="face" style="background-position:42.857% 75.000%"></span><b>Zane<i></i></b><q>Blue fish. The brightest blue ones you've got, zipping about a reef.</q></li><li class="cust"><span class="face" style="background-position:100.000% 25.000%"></span><b>Nurse Abby<i></i></b><q>The night shift needs something soothing. Little tetras, a big glowing shoal of them.</q></li><li class="cust"><span class="face" style="background-position:0.000% 50.000%"></span><b>Coach Dan<i></i></b><q>Tough fish for the club rooms. Tiger barbs: fast, stripy, always in formation.</q></li><li class="cust"><span class="face" style="background-position:85.714% 75.000%"></span><b>Mr Petrov<i></i></b><q>I work nights. I want fish that come out when I get home: loaches, and something with them.</q></li><li class="cust"><span class="face" style="background-position:0.000% 25.000%"></span><b>Dr Chen<i></i></b><q>A planted jungle. Thick with greenery and not too many fish.</q></li><li class="cust salt"><span class="face" style="background-position:57.143% 50.000%"></span><b>Bruno the baker<i></i></b><q>A reef for the shop window. People should stop for the fish and stay for the bread.</q></li><li class="cust"><span class="face" style="background-position:28.571% 25.000%"></span><b>Bayside Primary<i></i></b><q>A community tank the kids can learn from. Four kinds of fish living together.</q></li><li class="cust"><span class="face" style="background-position:42.857% 50.000%"></span><b>Leila<i></i></b><q>Angelfish, gliding through tall plants. I saw it in a magazine and can't stop thinking about it.</q></li><li class="cust salt"><span class="face" style="background-position:0.000% 100.000%"></span><b>Chef Marco<i></i></b><q>A reef beside the pass. Ten fish, four kinds, all in good health. I notice everything.</q></li><li class="cust salt"><span class="face" style="background-position:0.000% 75.000%"></span><b>Skipper Mack<i></i></b><q>A yellow tang. Bright as a channel marker, with a proper bit of reef to cruise.</q></li><li class="cust"><span class="face" style="background-position:28.571% 75.000%"></span><b>Nonna Rosa<i></i></b><q>Discus. The king of fish. My husband always wanted them, so now I will have them.</q></li><li class="cust"><span class="face" style="background-position:85.714% 100.000%"></span><b>Grandmaster Wei<i></i></b><q>Fancy goldfish, chosen with care. Orandas, ranchu. Each one a living jewel.</q></li><li class="cust"><span class="face" style="background-position:42.857% 100.000%"></span><b>Professor Okoye<i></i></b><q>For my research: thirty fish, with one great shoal of tetras among dense planting.</q></li></ul></div>
@@ -697,7 +776,7 @@ a{color:inherit}
     </div>
     <div class="wrap">
       <div class="bb-head">
-        <p class="bb-when"><b>Level 20</b> The fourth and biggest place.</p>
+        <p class="bb-when when"><span class="lvstar" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#star"/></svg><b>20</b></span>The fourth and biggest place, at level 20.</p>
         <h2 class="display bb-title" id="bb-title">The Big Blue</h2>
         <div class="shark sil" aria-hidden="true">
           <svg viewBox="0 0 1000 300" focusable="false">
@@ -749,31 +828,53 @@ a{color:inherit}
 
   <section class="journey" id="journey" aria-labelledby="journey-title">
     <div class="wrap journey-grid">
-      <header class="journey-head rise">
+      <header class="journey-head">
         <h2 class="display" id="journey-title">Every level opens something new.</h2>
         <p>Tank sizes are length × width × height, the way a fish shop lists them.</p>
+        <p class="swipe-hint" aria-hidden="true">Swipe along the levels</p>
       </header>
       <ol class="levels">
-        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>1</b></span><p><strong>30, 45 and 60&nbsp;cm tanks</strong> and your first fish room</p></li>
-        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>2</b></span><p><strong>75 × 40 × 45&nbsp;cm tank</strong></p></li>
-        <li class="lv big reef rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>3</b></span><p><strong>The Reef Room</strong> and a 90 × 45 × 45&nbsp;cm tank <span class="tag">New place</span></p></li>
-        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>4</b></span><p><strong>120&nbsp;cm tank</strong></p></li>
-        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>5</b></span><p><strong>The Giant 300</strong>, the tank for exotics</p></li>
-        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>6</b></span><p><strong>150 × 50 × 55&nbsp;cm tank</strong></p></li>
-        <li class="lv big shop rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>7</b></span><p><strong>The Fish Shop</strong>. It opens small, and display tanks, tank walls and exotics tanks open up as you trade <span class="tag">New place</span></p></li>
-        <li class="lv rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>8</b></span><p><strong>180&nbsp;cm tank</strong> and a bigger shop</p></li>
-        <li class="lv finale rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>20</b></span><p><strong>The Big Blue</strong> <span class="tag">Last new place</span></p></li>
-        <li class="lv beyond rise"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>21+</b></span><p><strong>And it keeps going.</strong> A new keeper rank every 10 levels, a reward chest every 5, and every level adds 1% to all your income.</p></li>
+        <li class="lv"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>1</b></span><p><strong>30, 45 and 60&nbsp;cm tanks</strong> and your first fish room</p></li>
+        <li class="lv"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>2</b></span><p><strong>75 × 40 × 45&nbsp;cm tank</strong></p></li>
+        <li class="lv big reef"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>3</b></span><p><strong>The Reef Room</strong> and a 90 × 45 × 45&nbsp;cm tank <span class="tag">New place</span></p></li>
+        <li class="lv"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>4</b></span><p><strong>120&nbsp;cm tank</strong></p></li>
+        <li class="lv"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>5</b></span><p><strong>The Giant 300</strong>, the tank for exotics</p></li>
+        <li class="lv"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>6</b></span><p><strong>150 × 50 × 55&nbsp;cm tank</strong></p></li>
+        <li class="lv big shop"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>7</b></span><p><strong>The Fish Shop</strong>. It opens small, and display tanks, tank walls and exotics tanks open up as you trade <span class="tag">New place</span></p></li>
+        <li class="lv"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>8</b></span><p><strong>180&nbsp;cm tank</strong> and a bigger shop</p></li>
+        <li class="lv finale"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>20</b></span><p><strong>The Big Blue</strong> <span class="tag">Last new place</span></p></li>
+        <li class="lv beyond"><span class="star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg><b><span class="sr-only">Level </span>21+</b></span><p><strong>And it keeps going.</strong> A new keeper rank every 10 levels, a reward chest every 5, and every level adds 1% to all your income.</p></li>
       </ol>
     </div>
   </section>
 
   <section class="maker" id="maker" aria-labelledby="maker-title">
     <div class="wrap maker-grid">
-      <h2 class="display rise" id="maker-title">Made in Perth by a fishkeeper.</h2>
-      <div class="maker-copy rise">
-        <p>Tankscaper is made in Perth, Western Australia.</p>
-        <p>The water rules come from real fishkeeping: cycle the tank, match fish to the temperature, don't overstock, and keep up with water changes.</p>
+      <div class="maker-copy">
+        <h2 class="display" id="maker-title">Made in Perth by a fishkeeper.</h2>
+        <p>The water rules come from real fishkeeping: cycle the tank, match fish to the temperature, don't overstock, and keep up with water changes. Every fish is its real size, too. Here are six of the 81 against one ruler.</p>
+      </div>
+      <figure class="sizes">
+        <div class="ruler" aria-hidden="true"><span style="--at:0">0</span><span style="--at:5">5</span><span style="--at:10">10</span><span class="cm" style="--at:15">15&nbsp;cm</span></div>
+        <ol class="fishes">
+          <li class="fish" style="--len:4.5"><img class="fish-pic" src="img/fish-guppy.webp" width="720" height="422" loading="lazy" decoding="async" alt="A guppy with a red and blue fan tail"><p><b>Guppy</b> <span class="fw">4.5&nbsp;cm</span></p></li>
+          <li class="fish" style="--len:6"><img class="fish-pic" src="img/fish-ram.webp" width="720" height="608" loading="lazy" decoding="async" alt="A German blue ram with a tall dark dorsal fin"><p><b>German blue ram</b> <span class="fw">6&nbsp;cm</span></p></li>
+          <li class="fish" style="--len:7"><img class="fish-pic" src="img/fish-mandarin.webp" width="720" height="400" loading="lazy" decoding="async" alt="A mandarin dragonet in blue, green and orange"><p><b>Mandarin dragonet</b> <span class="rf">7&nbsp;cm</span></p></li>
+          <li class="fish" style="--len:8"><img class="fish-pic" src="img/fish-clown.webp" width="720" height="391" loading="lazy" decoding="async" alt="An orange and white ocellaris clownfish"><p><b>Ocellaris clownfish</b> <span class="rf">8&nbsp;cm</span></p></li>
+          <li class="fish" style="--len:10"><img class="fish-pic" src="img/fish-flame-angel.webp" width="720" height="458" loading="lazy" decoding="async" alt="A red flame angelfish with black bars"><p><b>Flame angelfish</b> <span class="rf">10&nbsp;cm</span></p></li>
+          <li class="fish" style="--len:15"><img class="fish-pic" src="img/fish-discus.webp" width="681" height="720" loading="lazy" decoding="async" alt="A turquoise discus with dark wavy lines"><p><b>Discus</b> <span class="fw">15&nbsp;cm</span></p></li>
+        </ol>
+        <figcaption><span class="k fw">Green</span> lives in fresh water, <span class="k rf">purple</span> on the reef.</figcaption>
+      </figure>
+    </div>
+    <div class="wrap ask" id="questions">
+      <h2 class="display" id="ask-title">Questions before you play</h2>
+      <div class="faq">
+        <details><summary>When does Tankscaper come out?</summary><p>There's no date yet. The store pages open once testing is done.</p></details>
+        <details><summary>What will it cost?</summary><p>Nothing to download and play. Gems buy premium floors, walls and perks, and daily goals and chapters give you some too.</p></details>
+        <details><summary>Is it on iPad?</summary><p>It's made for iPhone first. iPads can run the iPhone version.</p></details>
+        <details><summary>Will I lose my tanks?</summary><p>Your game saves on your phone, and Settings has Save a backup, so you can keep a copy somewhere safe.</p></details>
+        <details><summary>How do I get help?</summary><p>Email support@tankscapergame.com, or see the <a href="support.html">support page</a>.</p></details>
       </div>
     </div>
   </section>
@@ -781,22 +882,14 @@ a{color:inherit}
   <section class="final live" id="get" aria-labelledby="get-title">
     <div class="scene" aria-hidden="true">
       <div class="ceiling caustics"><i></i><i></i></div>
-      <div class="shafts">
-        <i style="--x:18%;--w:8%;--r:12deg;--a:.16;--d:10s;--dl:-4s"></i>
-        <i style="--x:38%;--w:5%;--r:5deg;--a:.22;--d:8s;--dl:-1s"></i>
-        <i style="--x:55%;--w:10%;--r:-2deg;--a:.14;--d:13s;--dl:-6s"></i>
-        <i style="--x:74%;--w:5%;--r:-9deg;--a:.2;--d:9s;--dl:-3s"></i>
-      </div>
     </div>
     <div class="wrap final-inner">
       <div class="final-logo"><img src="img/logo.webp" alt="" width="640" height="263" loading="lazy" decoding="async"></div>
       <h2 class="display" id="get-title">Your first tank is waiting.</h2>
-      <p class="kind">Coming soon to iPhone and Android.</p>
-      <ul class="stores">
-        <li class="store"><svg aria-hidden="true"><use href="#ic-phone"/></svg><span><small>Coming soon to the</small><b>App Store</b></span></li>
-        <li class="store"><svg aria-hidden="true"><use href="#ic-phone"/></svg><span><small>Coming soon on</small><b>Google Play</b></span></li>
+      <ul class="tags" aria-label="Where to get it">
+        <li class="ptag"><span class="ptag-price">Free</span><span class="ptag-where"><b>App Store</b><small>coming soon</small></span></li>
+        <li class="ptag"><span class="ptag-price">Free</span><span class="ptag-where"><b>Google Play</b><small>coming soon</small></span></li>
       </ul>
-      <p class="free"><b>Free to play.</b></p>
     </div>
   </section>
 </main>
@@ -968,51 +1061,191 @@ a{color:inherit}
   const syncAllFilms = () => document.querySelectorAll('.live').forEach(syncFilms);
   if (!pageLoaded) window.addEventListener('load', () => { pageLoaded = true; setTimeout(syncAllFilms, 400); });
 
-  /* The living tank: planted or reef. */
+  /* v4. The living tank: the game's own fish live (tank/tank.js), or the reef clip. The live tank holds still while the
+     reef is showing, and the caption says what you are looking at. */
   const aliveSection = document.getElementById('alive');
   const tankWindow = aliveSection && aliveSection.querySelector('.window');
   const watchCap = document.getElementById('watch-cap');
+  const liveHost = aliveSection && aliveSection.querySelector('.livetank');
+  let viewNow = 'fresh';
+  const capFor = (layer) => { const h = layer.querySelector('.livetank'); return (h && !h.classList.contains('is-live') && layer.dataset.capStill) || layer.dataset.cap; };
   if (tankWindow) {
     const buttons = Array.from(aliveSection.querySelectorAll('.seg button'));
+    const layers = Array.from(tankWindow.querySelectorAll('.layer'));
     buttons.forEach((btn) => btn.addEventListener('click', () => {
-      const kind = btn.dataset.tank;
+      viewNow = btn.dataset.view;
       buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === btn)));
-      tankWindow.querySelectorAll('.layer').forEach((layer) => {
-        const show = layer.dataset.tank === kind;
+      layers.forEach((layer) => {
+        const show = layer.dataset.view === viewNow;
         layer.classList.toggle('show', show);
-        if (show && watchCap) watchCap.textContent = layer.dataset.cap;
+        if (show && watchCap) watchCap.innerHTML = capFor(layer);
         if (show) { const img = layer.querySelector('img'); if (img) img.loading = 'eager'; }
       });
-      tankWindow.classList.toggle('reef-on', kind === 'reef');
+      tankWindow.classList.toggle('reef-on', viewNow === 'reef');
+      layers.forEach((layer) => { const h = layer.querySelector('.livetank'); if (h) { if (layer.dataset.view === viewNow) h.removeAttribute('data-held'); else h.setAttribute('data-held', ''); } });
       syncFilms(aliveSection);
     }));
+    if ('MutationObserver' in window) layers.forEach((layer) => {
+      const h = layer.querySelector('.livetank');
+      if (h) new MutationObserver(() => { if (layer.dataset.view === viewNow && watchCap) watchCap.innerHTML = capFor(layer); }).observe(h, { attributes: true, attributeFilter: ['class'] });
+    });
+    aliveSection.querySelectorAll('.feed').forEach((feedBtn) => feedBtn.addEventListener('click', () => { feedBtn.classList.remove('dropped'); void feedBtn.offsetWidth; feedBtn.classList.add('dropped'); }));
   }
 
-  /* The phone beside the three beats: one screen per beat on a wide page, a slow turn through them on a phone. */
+  /* v4. How it plays: the three words are tabs. Each shows its line and its screen on the phone. On their own they turn
+     every few seconds while the section is on screen; once someone picks one, they stay where they were put. */
+  const beatsSection = document.getElementById('play');
+  const verbs = beatsSection ? Array.from(beatsSection.querySelectorAll('.verbs [role="tab"]')) : [];
   const screens = Array.from(document.querySelectorAll('.screens img'));
   const screenName = document.getElementById('screen-name');
-  let screenNow = 0, phoneSeen = false;
-  const showScreen = (i) => {
-    if (i === screenNow || !screens[i]) return;
-    screenNow = i;
-    screens.forEach((im, k) => im.classList.toggle('show', k === i));
-    if (screenName) screenName.textContent = screens[i].dataset.name;
-  };
-  if (screens.length > 1 && 'IntersectionObserver' in window) {
-    const wide = window.matchMedia('(min-width:1000px)');
-    const beats = Array.from(document.querySelectorAll('.beat'));
-    const beatIo = new IntersectionObserver((entries) => {
-      if (!wide.matches) return;
-      for (const e of entries) if (e.isIntersecting) showScreen(beats.indexOf(e.target));
-    }, { rootMargin: '-48% 0px -48% 0px' });
-    beats.forEach((b) => beatIo.observe(b));
-    const phoneIo = new IntersectionObserver((entries) => { phoneSeen = entries[0].isIntersecting; }, { threshold: 0.35 });
-    phoneIo.observe(screens[0].closest('.phone'));
-    setInterval(() => {
-      if (wide.matches || !phoneSeen || stillMode() || document.hidden) return;
-      showScreen((screenNow + 1) % screens.length);
-    }, 3400);
+  if (verbs.length) {
+    const CYCLE = 5200;
+    let now = 0, timer = 0, picked = false, seen = false;
+    beatsSection.style.setProperty('--cycle', CYCLE + 'ms');
+    const show = (i, focus) => {
+      now = (i + verbs.length) % verbs.length;
+      verbs.forEach((v, k) => {
+        const on = k === now;
+        v.setAttribute('aria-selected', String(on));
+        v.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(v.getAttribute('aria-controls'));
+        if (panel) { if (on) panel.removeAttribute('data-off'); else panel.setAttribute('data-off', ''); }
+      });
+      const si = +verbs[now].dataset.screen;
+      screens.forEach((im, k) => im.classList.toggle('show', k === si));
+      if (screenName && screens[si]) screenName.innerHTML = screens[si].dataset.name;
+      if (focus) verbs[now].focus();
+      /* restart the gold line under the word */
+      const line = verbs[now].querySelector('i'); if (line) { line.style.animation = 'none'; void line.offsetWidth; line.style.animation = ''; }
+    };
+    const run = () => {
+      clearTimeout(timer);
+      const go = !picked && seen && !stillMode() && !document.hidden;
+      beatsSection.classList.toggle('cycling', !picked && !stillMode());
+      beatsSection.classList.toggle('is-held', !go);
+      if (go) timer = setTimeout(() => { show(now + 1); run(); }, CYCLE);
+    };
+    verbs.forEach((v, i) => {
+      v.addEventListener('click', () => { picked = true; show(i); run(); });
+      v.addEventListener('keydown', (e) => {
+        const k = e.key, step = (k === 'ArrowDown' || k === 'ArrowRight') ? 1 : (k === 'ArrowUp' || k === 'ArrowLeft') ? -1 : 0;
+        if (step) { e.preventDefault(); picked = true; show(now + step, true); run(); }
+        else if (k === 'Home' || k === 'End') { e.preventDefault(); picked = true; show(k === 'Home' ? 0 : verbs.length - 1, true); run(); }
+      });
+    });
+    if ('IntersectionObserver' in window) new IntersectionObserver((es) => { seen = es[es.length - 1].isIntersecting; run(); }, { threshold: 0.4 }).observe(beatsSection.querySelector('.beats-grid'));
+    document.addEventListener('visibilitychange', run);
+    show(0); run();
   }
+
+  /* v4. The places: a hand of three phones. Tapping one at the back brings it to the front, and its words with it. */
+  const placesSection = document.getElementById('places');
+  const cards = placesSection ? Array.from(placesSection.querySelectorAll('.fan-card')) : [];
+  if (cards.length) {
+    const order = cards.map((c) => c.dataset.place);   /* front first */
+    const lay = (focus) => {
+      cards.forEach((c) => {
+        const slot = order.indexOf(c.dataset.place), on = slot === 0;
+        c.dataset.slot = String(slot);
+        c.setAttribute('aria-selected', String(on));
+        c.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(c.getAttribute('aria-controls'));
+        if (panel) { if (on) panel.removeAttribute('data-off'); else panel.setAttribute('data-off', ''); }
+        if (on && focus) c.focus();
+      });
+      placesSection.dataset.place = order[0];
+    };
+    const bring = (place, focus) => {
+      const i = order.indexOf(place); if (i <= 0) return;
+      order.splice(i, 1); order.unshift(place);
+      /* the one that was in front drops to the side it was tapped from, so the hand keeps its shape */
+      if (i === 2 && order.length === 3) { const t = order[1]; order[1] = order[2]; order[2] = t; }
+      lay(focus);
+    };
+    cards.forEach((c) => {
+      c.addEventListener('click', () => bring(c.dataset.place));
+      c.addEventListener('keydown', (e) => {
+        const step = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        const names = cards.map((x) => x.dataset.place), cur = names.indexOf(order[0]);
+        bring(names[(cur + step + names.length) % names.length], true);
+      });
+    });
+    lay(false);
+  }
+
+  /* v4. 81 species: one fish for each, 42 freshwater and 39 reef, milling in two shoals. They swim as the page scrolls
+     (the scroll is their clock), and scatter from a tap. Reduced motion: one still frame. */
+  (() => {
+    const cv = document.querySelector('canvas.shoal'); if (!cv || !cv.getContext) return;
+    const ctx = cv.getContext('2d'), sec = cv.closest('section');
+    const COL = ['#8fe07f', '#bf93ff'];
+    let W = 0, H = 0, D = 1, seed = 11, t = 0.8, on = true, loop = 0, raf = 0, lastT = 0;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+    const fish = [];
+    for (let i = 0; i < 81; i++) fish.push({ s: i < 42 ? 0 : 1, a: rnd() * 6.2832, r: 0.22 + Math.sqrt(rnd()) * 0.78, y: rnd() - 0.5, sp: 0.75 + rnd() * 0.5, len: 0.82 + rnd() * 0.34, ph: rnd() * 6.28, ox: 0, oy: 0, vx: 0, vy: 0 });
+    const base = (f) => {
+      const c = f.s ? [W * 0.63, H * 0.57] : [W * 0.37, H * 0.43], R = Math.min(W * 0.3, H * 0.4), dir = f.s ? -1 : 1, a = f.a + dir * t * 0.85 * f.sp;
+      return { x: c[0] + Math.cos(a) * R * f.r, y: c[1] + Math.sin(a) * R * f.r * 0.6 + f.y * R * 0.22, hx: -Math.sin(a) * dir, hy: Math.cos(a) * 0.6 * dir };
+    };
+    const fishAt = (x, y, ang, L, col, ph) => {
+      ctx.setTransform(D, 0, 0, D, 0, 0); ctx.translate(x, y); ctx.rotate(ang);
+      const sw = Math.sin(ph) * L * 0.12;
+      ctx.beginPath();
+      ctx.moveTo(L * 0.5, 0);
+      ctx.bezierCurveTo(L * 0.36, -L * 0.25, -L * 0.12, -L * 0.21, -L * 0.3, sw * 0.35);
+      ctx.bezierCurveTo(-L * 0.12, L * 0.21, L * 0.36, L * 0.25, L * 0.5, 0);
+      ctx.moveTo(-L * 0.24, sw * 0.3); ctx.lineTo(-L * 0.54, -L * 0.2 + sw); ctx.quadraticCurveTo(-L * 0.46, sw * 0.9, -L * 0.54, L * 0.2 + sw); ctx.closePath();
+      ctx.fillStyle = col; ctx.fill();
+    };
+    const draw = () => {
+      if (!W) return;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+      const L = Math.max(12, Math.min(24, W / 21));
+      for (const f of fish) {
+        const b = base(f), ang = Math.atan2(b.hy * 40 + f.vy * 0.04, b.hx * 40 + f.vx * 0.04);
+        ctx.globalAlpha = 0.7 + 0.3 * f.r;
+        fishAt(b.x + f.ox, b.y + f.oy, ang, L * f.len, COL[f.s], t * 9 * f.sp + f.ph);
+      }
+      ctx.globalAlpha = 1;
+    };
+    const size = () => { const r = cv.getBoundingClientRect(); D = Math.min(window.devicePixelRatio || 1, 2); W = r.width; H = r.height; cv.width = Math.round(W * D); cv.height = Math.round(H * D); draw(); };
+    const clock = () => { if (stillMode()) return; const r = sec.getBoundingClientRect(); t = 0.8 + (innerHeight - r.top) / innerHeight * 1.5; };
+    const frame = () => { raf = 0; clock(); draw(); };
+    const req = () => { if (on && !raf) raf = requestAnimationFrame(frame); };
+    const settle = (nowT) => {
+      const dt = Math.min(0.05, (nowT - lastT) / 1000 || 0.016); lastT = nowT; let moving = false;
+      for (const f of fish) {
+        f.vx += (-f.ox * 9 - f.vx * 3.2) * dt; f.vy += (-f.oy * 9 - f.vy * 3.2) * dt;
+        f.ox += f.vx * dt; f.oy += f.vy * dt;
+        if (Math.abs(f.ox) + Math.abs(f.oy) > 0.3 || Math.abs(f.vx) + Math.abs(f.vy) > 2) moving = true; else { f.ox = f.oy = f.vx = f.vy = 0; }
+      }
+      t += dt * 0.6; draw();
+      loop = moving ? requestAnimationFrame(settle) : 0;
+    };
+    cv.addEventListener('pointerdown', (e) => {
+      if (stillMode()) return;
+      const r = cv.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top, reach = Math.max(90, W * 0.28);
+      for (const f of fish) {
+        const b = base(f), ex = b.x + f.ox - px, ey = b.y + f.oy - py, d = Math.sqrt(ex * ex + ey * ey) || 1;
+        if (d < reach) { const k = (1 - d / reach) * 520; f.vx += ex / d * k; f.vy += ey / d * k; }
+      }
+      if (!loop) { lastT = performance.now(); loop = requestAnimationFrame(settle); }
+    });
+    if ('IntersectionObserver' in window) new IntersectionObserver((es) => { on = es[es.length - 1].isIntersecting; req(); }, { rootMargin: '100px' }).observe(cv);
+    addEventListener('scroll', req, { passive: true });
+    addEventListener('resize', size);
+    clock(); size();
+  })();
+
+  /* v4. Six of the 81: a fish flicks its tail when it is touched or pointed at. */
+  if (!stillMode()) document.querySelectorAll('.fish-pic').forEach((img) => {
+    const swim = () => { if (!img.classList.contains('is-swim')) img.classList.add('is-swim'); };
+    img.addEventListener('animationend', () => img.classList.remove('is-swim'));
+    img.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') swim(); });
+    img.addEventListener('click', swim);
+  });
 
   /* Pause the living scenes while they are off screen. */
   const heroOn = () => hero && !hero.classList.contains('is-off');
@@ -1095,5 +1328,6 @@ a{color:inherit}
   }
 })();
 </script>
+<script src="tank/tank.js" defer></script>
 
 </body></html>
